@@ -2,19 +2,28 @@
 #include <unistd.h>
 
 void showMainMenu() {
-    cout << "******************************************" << endl;
-    cout << "*                                        *" << endl;
-    cout << "*      헬스케어에 오신걸 환영합니다      *" << endl;
-    cout << "*                                        *" << endl;
-    cout << "******************************************" << endl;
-    cout << "*                                        *" << endl;
-    cout << "*          1. 고객관리                   *" << endl;
-    cout << "*          2. 운동관리                   *" << endl;
-    cout << "*          3. 식단관리                   *" << endl;
-    cout << "*          0. Exit Program               *" << endl;
-    cout << "*                                        *" << endl;
-    cout << "******************************************" << endl;
-    cout << "                   옵션을 선택하세요:   ";
+        cout << "  ###     ###  #######  #####    #####   " << endl;
+        cout << "   ###   ###   ##       ##  ##   ##  ##  " << endl;
+        cout << "    ### ###    #####    ##   ##  ####### " << endl;
+        cout << "     #####     ##       ##   ##  ##   ## " << endl;
+        cout << "      ###      #######  #####    ##   ## " << endl;
+        cout << "\n";
+        cout << "┌─────────────────────────────┐" << endl;
+        cout << "│   WELCOME VEDA HEALTHCARE   │" << endl;
+        cout << "├─────────────────────────────┤" << endl;
+        cout << "│                             │" << endl;
+        cout << "│  [1]  고객  │  [2]  운동    │" << endl;
+        cout << "│                             │" << endl;
+        cout << "│  [3]  삭제  │  [4]  조회    │" << endl;
+        cout << "│                             │" << endl;
+        cout << "│         [0]  종료           │" << endl;
+        cout << "└─────────────────────────────┘" << endl;
+        cout << "┌─────────────────────────────┐" << endl;
+        cout << "│  번호 입력: _               │" << endl;
+        cout << "└─────────────────────────────┘" << endl;
+        cout << "\033[A"; // 커서를 위로 이동
+        cout << "\033[A";
+        cout << "\033[14C"; // 커서를 '번호 입력: ' 위치로 이동
 }
 
 //콘솔 화면을 지우는 함수
@@ -32,14 +41,26 @@ bool customerMenu(customerManager& custmanager) {
     int choice; // 메뉴 선택할 번호
     do {
         clearConsole();
-        cout << "\n\n ▷▷▷▷ Customer Management ◁◁◁◁" << endl;
-        cout << "   1. Add Customer" << endl;
-        cout << "   2. Modify Customer Information" << endl;
-        cout << "   3. Delete Customer" << endl;
-        cout << "   4. View Customer" << endl;
-        cout << "   0. Return to Main Menu" << endl;
-        cout << "            >> Choice: ";
+        cout << "┌─────────────────────────────┐" << endl;
+        cout << "│          고객 관리          │" << endl;
+        cout << "├─────────────────────────────┤" << endl;
+        cout << "│                             │" << endl;
+        cout << "│  [1]  입력  │  [2]  수정    │" << endl;
+        cout << "│                             │" << endl;
+        cout << "│  [3]  삭제  │  [4]  조회    │" << endl;
+        cout << "│                             │" << endl;
+        cout << "│         [0]  종료           │" << endl;
+        cout << "└─────────────────────────────┘" << endl;
+        cout << "┌─────────────────────────────┐" << endl;
+        cout << "│  번호 입력: _               │" << endl;
+        cout << "└─────────────────────────────┘" << endl;
+        cout << "\033[A"; // 커서를 위로 이동
+        cout << "\033[A";
+        cout << "\033[14C"; // 커서를 '번호 입력: ' 위치로 이동
+
         cin >> choice;
+
+        cout << "\n\n";
 
         if (choice == 1) { // 1. 고객 추가
             custmanager.addCustomer();
@@ -84,6 +105,7 @@ bool exerciseMenu(ExerciseManager& manager, customerManager& custmanager) {
         cout << "\033[A"; // 커서를 위로 이동
         cout << "\033[A";
         cout << "\033[14C"; // 커서를 '번호 입력: ' 위치로 이동
+
         cin >> choice;
 
         cout << "\n\n";
@@ -148,14 +170,26 @@ bool mealMenu(mealmanage& mealmanager, customerManager& custmanager) { // NEW 고
     int choice;
     do {
         clearConsole();
-        cout << "\n*** Meal Management ***" << endl;
-        cout << "1. Add Meal" << endl;
-        cout << "2. Modify Meal" << endl;
-        cout << "3. Delete Meal" << endl;
-        cout << "4. Display Meals" << endl;
-        cout << "0. Return to Main Menu" << endl;
-        cout << "Choice: ";
+        cout << "┌─────────────────────────────┐" << endl;
+        cout << "│          식단 관리          │" << endl;
+        cout << "├─────────────────────────────┤" << endl;
+        cout << "│                             │" << endl;
+        cout << "│  [1]  입력  │  [2]  수정    │" << endl;
+        cout << "│                             │" << endl;
+        cout << "│  [3]  삭제  │  [4]  조회    │" << endl;
+        cout << "│                             │" << endl;
+        cout << "│         [0]  종료           │" << endl;
+        cout << "└─────────────────────────────┘" << endl;
+        cout << "┌─────────────────────────────┐" << endl;
+        cout << "│  번호 입력: _               │" << endl;
+        cout << "└─────────────────────────────┘" << endl;
+        cout << "\033[A"; // 커서를 위로 이동
+        cout << "\033[A";
+        cout << "\033[14C"; // 커서를 '번호 입력: ' 위치로 이동
+
         cin >> choice;
+
+        cout << "\n\n";
 
         if (choice == 1) {  // 식사 관리 입력 함수 호출
             int id, totalCalories;
