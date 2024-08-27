@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "fstream": "cpp",
+        "*.tcc": "cpp",
+        "chrono": "cpp",
+        "thread": "cpp"
+    },
+    "C_Cpp.default.compilerPath": "C:\\MinGW\\bin\\g++.exe"
+}
