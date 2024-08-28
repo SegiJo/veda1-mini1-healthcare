@@ -1,4 +1,4 @@
-#ifndef _LATOUT_H_
+#ifndef _LAYOUT_H_
 #define _LAYOUT_H_
 
 #include <iostream>

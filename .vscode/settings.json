@@ -5,7 +5,8 @@
         "fstream": "cpp",
         "*.tcc": "cpp",
         "chrono": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "limits": "cpp"
     },
     "C_Cpp.default.compilerPath": "C:\\MinGW\\bin\\g++.exe"
 }
