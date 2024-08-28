@@ -4,11 +4,11 @@
 
 void showMainMenu() {
         cout << "\033[38;5;208m"; // 주황색 적용
-        cout << "  ###     ###  #######  ######    #######  " << endl;
-        cout << "   ###   ###   ##       ##   ##   ##   ##  " << endl;
-        cout << "    ### ###    #####    ##   ##   #######  " << endl;
-        cout << "     #####     ##       ##   ##   ##   ##  " << endl;
-        cout << "      ###      #######  ######    ##   ##  " << endl;
+        cout << " ###     ###  #######  ######    #######  " << endl;
+        cout << "  ###   ###   ##       ##   ##   ##   ##  " << endl;
+        cout << "   ### ###    #####    ##   ##   #######  " << endl;
+        cout << "    #####     ##       ##   ##   ##   ##  " << endl;
+        cout << "     ###      #######  ######    ##   ##  " << endl;
         cout << "\033[0m\n"; // 색상 다시 리셋
         cout << "┌────────────────────────────────────────┐" << endl;
         cout << "│         WELCOME VEDA HEALTHCARE        │" << endl;
@@ -97,7 +97,7 @@ bool exerciseMenu(ExerciseManager& manager, customerManager& custmanager) {
     do {
         clearConsole();
         cout << "┌─────────────────────────────┐" << endl;
-        cout << "│          식단 관리          │" << endl;
+        cout << "│          운동 관리          │" << endl;
         cout << "├─────────────────────────────┤" << endl;
         cout << "│                             │" << endl;
         cout << "│  [1]  입력  │  [2]  수정    │" << endl;
@@ -128,6 +128,7 @@ bool exerciseMenu(ExerciseManager& manager, customerManager& custmanager) {
             Customer* cust = custmanager.getCustomerById(id); 
             if (cust == nullptr) {
                 cout << "No customer found with ID: " << id << endl;
+                sleep(3);
                 continue;
             }
 
@@ -160,7 +161,7 @@ bool exerciseMenu(ExerciseManager& manager, customerManager& custmanager) {
         }
         else if (choice == 4) {
             manager.displayExercises();
-            sleep(3); //  NEW clear�Լ��� ���ؼ� ȭ���� �������Ƿ� 3�ʰ� ����ϱ� ���� sleep �Լ� �߰�
+            sleep(3); 
         }
         else if (choice == 0) {
             return false;
@@ -169,7 +170,7 @@ bool exerciseMenu(ExerciseManager& manager, customerManager& custmanager) {
             cout << "Invalid choice." << endl;
         }
     } while (choice != 0);
-    return true; // NEW �޴��� ���������� ������� �ʰ� ������ ����� ��� true�� ��ȯ
+    return true; 
 }
 
 // �Ļ� ���� �޴� �Լ�
@@ -178,7 +179,7 @@ bool mealMenu(mealmanage& mealmanager, customerManager& custmanager) { // NEW �
     do {
         clearConsole();
         cout << "┌─────────────────────────────┐" << endl;
-        cout << "│          운동 관리          │" << endl;
+        cout << "│          식단 관리          │" << endl;
         cout << "├─────────────────────────────┤" << endl;
         cout << "│                             │" << endl;
         cout << "│  [1]  입력  │  [2]  수정    │" << endl;
