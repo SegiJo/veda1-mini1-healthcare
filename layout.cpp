@@ -13,10 +13,13 @@ void showMainMenu() {
         cout << "│         WELCOME VEDA HEALTHCARE        │" << endl;
         cout << "├────────────────────────────────────────┤" << endl;
         cout << "│                                        │" << endl;
-        cout << "│                [1]  고객               │" << endl;
-        cout << "│                [2]  운동               │" << endl;
-        cout << "│                [3]  식단               │" << endl;
-        cout << "│                [0]  종료               │" << endl;
+        cout << "│               [1]  고객                │" << endl;
+        cout << "│                                        │" << endl;
+        cout << "│               [2]  운동                │" << endl;
+        cout << "│                                        │" << endl;
+        cout << "│               [3]  식단                │" << endl;
+        cout << "│                                        │" << endl;
+        cout << "│               [0]  종료                │" << endl;
         cout << "│                                        │" << endl;
         cout << "└────────────────────────────────────────┘" << endl;
         cout << "┌────────────────────────────────────────┐" << endl;
