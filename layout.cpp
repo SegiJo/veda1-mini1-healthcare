@@ -1,5 +1,6 @@
 #include "layout.h"
 #include <unistd.h>
+#include <locale.h>
 
 void showMainMenu() {
         cout << "  ###     ###  #######  #####    #####   " << endl;

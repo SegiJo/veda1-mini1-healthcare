@@ -9,21 +9,21 @@
 
 using namespace std;
 
-// NEW customerManager Å¬·¡½ºÀÇ ¸â¹ö ÇÔ¼ö getCustomerById¸¦ È£ÃâÇØ °í°´ ID¸¦ ¹Ş¾Æ¿À´Â ÇÔ¼ö Ãß°¡
+// NEW customerManager í´ë˜ìŠ¤ì˜ ë©¤ë²„ í•¨ìˆ˜ getCustomerByIdë¥¼ í˜¸ì¶œí•´ ê³ ê° IDë¥¼ ë°›ì•„ì˜¤ëŠ” í•¨ìˆ˜ ì¶”ê°€
 Customer* customerManager::getCustomerById(int id) {
-    for (auto& cust : customers) { // °í°´ ¸ñ·Ï¿¡¼­ ÇØ´ç ID¸¦ °¡Áø °í°´À» Ã£À½
+    for (auto& cust : customers) { // ê³ ê° ëª©ë¡ì—ì„œ í•´ë‹¹ IDë¥¼ ê°€ì§„ ê³ ê°ì„ ì°¾ìŒ
         if (cust.getId() == id) {
-            return &cust; // Æ÷ÀÎÅÍ·Î ¹İÈ¯
+            return &cust; // í¬ì¸í„°ë¡œ ë°˜í™˜
         }
     }
-    return nullptr; // Ã£Áö ¸øÇÏ¸é nullptr ¹İÈ¯
+    return nullptr; // ì°¾ì§€ ëª»í•˜ë©´ nullptr ë°˜í™˜
 }
 
-// CSV ÆÄÀÏ¿¡¼­ °í°´ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¿Í customers º¤ÅÍ¿¡ Ãß°¡ÇÏ´Â ÇÔ¼ö
+// CSV íŒŒì¼ì—ì„œ ê³ ê° ë°ì´í„°ë¥¼ ì½ì–´ì™€ customers ë²¡í„°ì— ì¶”ê°€í•˜ëŠ” í•¨ìˆ˜
 void customerManager::loadFromCSV(const string& filename) { // filename <= cust_filename = "customers.csv"
-	ifstream file(filename); // ÆÄÀÏ ½ºÆ®¸² »ı¼º
+	ifstream file(filename); // íŒŒì¼ ìŠ¤íŠ¸ë¦¼ ìƒì„±
 
-	//ÆÄÀÏÀÌ ¿­¸®Áö ¾ÊÀ¸¸é ¿¡·¯ ¸Ş½ÃÁö Ãâ·Â
+	//íŒŒì¼ì´ ì—´ë¦¬ì§€ ì•Šìœ¼ë©´ ì—ëŸ¬ ë©”ì‹œì§€ ì¶œë ¥
 	if (!file.is_open()) {
 		cerr << "Cannot open file: " << filename << endl;
 		return;
@@ -31,39 +31,39 @@ void customerManager::loadFromCSV(const string& filename) { // filename <= cust_
 
 	string line;
 
-	// ÆÄÀÏÀÇ °¢ ÁÙÀ» ÀĞ¾î Ã³¸®ÇÑ´Ù.
+	// íŒŒì¼ì˜ ê° ì¤„ì„ ì½ì–´ ì²˜ë¦¬í•œë‹¤.
 	while (getline(file, line)) {
-		stringstream ss(line); // ÇÑ ÁÙÀ» stringstreamÀ¸·Î º¯È¯
+		stringstream ss(line); // í•œ ì¤„ì„ stringstreamìœ¼ë¡œ ë³€í™˜
 		string idStr, name, phoneNumber, gender;
 
-		//°¢ ÇÊµå¸¦ ÄŞ¸¶·Î ±¸ºĞÇÏ¿© ÀĞ±â
+		//ê° í•„ë“œë¥¼ ì½¤ë§ˆë¡œ êµ¬ë¶„í•˜ì—¬ ì½ê¸°
 		getline(ss, idStr, ',');
 		getline(ss, name, ',');
 		getline(ss, phoneNumber, ',');
 		getline(ss, gender, ',');
 
-		//°¢ ÇÊµå°¡ À¯È¿ÇÑÁö È®ÀÎÇÏ°í °´Ã¼ »ı¼º
+		//ê° í•„ë“œê°€ ìœ íš¨í•œì§€ í™•ì¸í•˜ê³  ê°ì²´ ìƒì„±
 		if (!idStr.empty() && !name.empty() && !phoneNumber.empty() && !gender.empty()) {
-			int id = stoi(idStr); //ID¸¦ Á¤¼ö·Î º¯È¯
+			int id = stoi(idStr); //IDë¥¼ ì •ìˆ˜ë¡œ ë³€í™˜
 			customers.emplace_back(id, name, phoneNumber, gender);
 		}
 	}
-	file.close(); //ÆÄÀÏ ´İ±â
+	file.close(); //íŒŒì¼ ë‹«ê¸°
 }
 
-// »õ·Î¿î °í°´À» Ãß°¡ÇÏ´Â ÇÔ¼ö (°£´ÜÇÑ ÀÔ·ÂÀ» ÅëÇØ Á¤º¸ ÀÔ·Â)
+// ìƒˆë¡œìš´ ê³ ê°ì„ ì¶”ê°€í•˜ëŠ” í•¨ìˆ˜ (ê°„ë‹¨í•œ ì…ë ¥ì„ í†µí•´ ì •ë³´ ì…ë ¥)
 void customerManager::addCustomer() {
 	int id;
 	string name, phoneNumber, gender;
 
 	if (customers.size() >= 10) {
 		cout << "Cannot add more customers. Please delete some customer information. Returning to menu." << endl;
-		//this_thread::sleep_for(chrono::seconds(1)); VSCODE¿¡¼­ ÀÛµ¿ X
-		sleep(1); // ´ëÃ¼·Î sleep »ç¿ë
+		//this_thread::sleep_for(chrono::seconds(1)); VSCODEì—ì„œ ì‘ë™ X
+		sleep(1); // ëŒ€ì²´ë¡œ sleep ì‚¬ìš©
 		return;
 	}
 
-	//--------IDÀÔ·Â---------
+	//--------IDì…ë ¥---------
 	while (true) {
 		cout << "Customer ID (Enter 0 to cancel): ";
 
@@ -78,13 +78,13 @@ void customerManager::addCustomer() {
 
 		if (id == 0) return;
 
-		// ID ¹üÀ§ È®ÀÎ (¿¹: 1~100 »çÀÌÀÇ À¯È¿ÇÑ °ª)
+		// ID ë²”ìœ„ í™•ì¸ (ì˜ˆ: 1~100 ì‚¬ì´ì˜ ìœ íš¨í•œ ê°’)
 		if (id < 1 || id > 100) {
 			cout << "ID must be a number between 1 and 100. Please try again." << endl;
 			continue;
 		}
 
-		//ID Áßº¹ È®ÀÎ
+		//ID ì¤‘ë³µ í™•ì¸
 		bool idExists = false;
 		for (const auto& customer : customers) {
 			if (customer.id == id) {
@@ -97,11 +97,11 @@ void customerManager::addCustomer() {
 			continue;
 		}
 		else {
-			break; // ID°¡ Áßº¹µÇÁö ¾ÊÀ¸¸é ´ÙÀ½À¸·Î ÀÌµ¿
+			break; // IDê°€ ì¤‘ë³µë˜ì§€ ì•Šìœ¼ë©´ ë‹¤ìŒìœ¼ë¡œ ì´ë™
 		}
 	}
 
-	//--------ÀÌ¸§ ÀÔ·Â---------
+	//--------ì´ë¦„ ì…ë ¥---------
 	while (true) {
 		cout << "Customer Name (Enter 0 to cancel): ";
 		getline(cin, name);
@@ -112,11 +112,11 @@ void customerManager::addCustomer() {
 			cout << "Please enter a name." << endl;
 		}
 		else {
-			break; //ÀÌ¸§ÀÌ ÀÔ·ÂµÇ¸é ´ÙÀ½À¸·Î ÀÌµ¿
+			break; //ì´ë¦„ì´ ì…ë ¥ë˜ë©´ ë‹¤ìŒìœ¼ë¡œ ì´ë™
 		}
 	}
 
-	//--------ÀüÈ­¹øÈ£ ÀÔ·Â-----
+	//--------ì „í™”ë²ˆí˜¸ ì…ë ¥-----
 	while (true) {
 		cout << "Phone Number (excluding dashes, Enter 0 to cancel): ";
 		getline(cin, phoneNumber);
@@ -125,10 +125,10 @@ void customerManager::addCustomer() {
 			cout << "Please enter a phone number." << endl;
 		}
 		else if (phoneNumber == "0") return;
-		else break; // ÀüÈ­¹øÈ£°¡ ÀÔ·ÂµÇ¸é ´ÙÀ½À¸·Î ÀÌµ¿
+		else break; // ì „í™”ë²ˆí˜¸ê°€ ì…ë ¥ë˜ë©´ ë‹¤ìŒìœ¼ë¡œ ì´ë™
 	}
 
-	//--------¼ºº° ÀÔ·Â--------
+	//--------ì„±ë³„ ì…ë ¥--------
 	while (true) {
 		cout << "Gender (M/F, Enter 0 to cancel): ";
 		getline(cin, gender);
@@ -138,22 +138,22 @@ void customerManager::addCustomer() {
 		}
 		else if (gender == "0") return;
 		else if (gender == "M" || gender == "F") {
-			break; // ¼ºº°ÀÌ M ¶Ç´Â F·Î ¿Ã¹Ù¸£°Ô ÀÔ·ÂµÇ¸é ´ÙÀ½ ´Ü°è·Î ÀÌµ¿
+			break; // ì„±ë³„ì´ M ë˜ëŠ” Fë¡œ ì˜¬ë°”ë¥´ê²Œ ì…ë ¥ë˜ë©´ ë‹¤ìŒ ë‹¨ê³„ë¡œ ì´ë™
 		}
 		else {
 			cout << "Invalid gender. Please enter M or F." << endl;
 		}
 	}
 
-	//»õ·Î¿î °í°´ °´Ã¼¸¦ º¤ÅÍ¿¡ Ãß°¡ÇÑ´Ù.
+	//ìƒˆë¡œìš´ ê³ ê° ê°ì²´ë¥¼ ë²¡í„°ì— ì¶”ê°€í•œë‹¤.
 	customers.emplace_back(id, name, phoneNumber, gender);
 	cout << "Customer has been added! Welcome to customer management!" << endl;
 
-	//Ãß°¡ÇÑ µ¥ÀÌÅÍ¸¦ customers.csv ÆÄÀÏ¿¡ Áï½Ã ÀúÀå
+	//ì¶”ê°€í•œ ë°ì´í„°ë¥¼ customers.csv íŒŒì¼ì— ì¦‰ì‹œ ì €ì¥
 	saveToCSV("customers.csv");
 }
 
-// °í°´À» »èÁ¦ÇÏ´Â ÇÔ¼ö(ID·Î °Ë»öÇÏ¿© »èÁ¦)
+// ê³ ê°ì„ ì‚­ì œí•˜ëŠ” í•¨ìˆ˜(IDë¡œ ê²€ìƒ‰í•˜ì—¬ ì‚­ì œ)
 void customerManager::deleteCustomer() {
 	int id;
 
@@ -192,15 +192,15 @@ void customerManager::deleteCustomer() {
 
 	cout << "Cannot find customer with the specified ID." << endl;
 
-	//Ãß°¡ÇÑ µ¥ÀÌÅÍ¸¦ customers.csv ÆÄÀÏ¿¡ Áï½Ã ÀúÀå
+	//ì¶”ê°€í•œ ë°ì´í„°ë¥¼ customers.csv íŒŒì¼ì— ì¦‰ì‹œ ì €ì¥
 	saveToCSV("customers.csv");
 }
 
-// °í°´ Á¤º¸¸¦ ¼öÁ¤ÇÏ´Â ÇÔ¼ö(ID·Î °Ë»öÇÏ¿© Á¤º¸ ¼öÁ¤)
+// ê³ ê° ì •ë³´ë¥¼ ìˆ˜ì •í•˜ëŠ” í•¨ìˆ˜(IDë¡œ ê²€ìƒ‰í•˜ì—¬ ì •ë³´ ìˆ˜ì •)
 void customerManager::modifyCustomer() {
 	int id;
 
-	//ÇöÀç Á¸ÀçÇÏ´Â ID¸ñ·ÏÀ» 10°³ ´ÜÀ§·Î Ãâ·Â
+	//í˜„ì¬ ì¡´ì¬í•˜ëŠ” IDëª©ë¡ì„ 10ê°œ ë‹¨ìœ„ë¡œ ì¶œë ¥
 	cout << "\nCurrent ID list:\n\n" << "ID List | ";
 	int count = 0;
 
@@ -219,7 +219,7 @@ void customerManager::modifyCustomer() {
 	cin >> id;
 	cin.ignore();
 
-	//ID·Î °Ë»öÇÏ¿© °í°´À» Ã£´Â´Ù.
+	//IDë¡œ ê²€ìƒ‰í•˜ì—¬ ê³ ê°ì„ ì°¾ëŠ”ë‹¤.
 	for (auto it = customers.begin(); it != customers.end(); ++it) {
 		if (it->id == id) {
 			cout << "New Name: ";
@@ -237,14 +237,14 @@ void customerManager::modifyCustomer() {
 			return;
 		}
 	}
-	// °í°´À» Ã£Áö ¸øÇÑ °æ¿ì
+	// ê³ ê°ì„ ì°¾ì§€ ëª»í•œ ê²½ìš°
 	cout << "\nCannot find customer with the specified ID. Please try again." << endl;
 
-	//¼öÁ¤ ÈÄ µ¥ÀÌÅÍ¸¦ customers.csv ÆÄÀÏ¿¡ Áï½Ã ÀúÀå
+	//ìˆ˜ì • í›„ ë°ì´í„°ë¥¼ customers.csv íŒŒì¼ì— ì¦‰ì‹œ ì €ì¥
 	saveToCSV("customers.csv");
 }
 
-// °í°´ Á¤º¸¸¦ Á¶È¸ÇÏ´Â ÇÔ¼ö(ID·Î °Ë»öÇÏ¿© Á¤º¸ Ãâ·Â)
+// ê³ ê° ì •ë³´ë¥¼ ì¡°íšŒí•˜ëŠ” í•¨ìˆ˜(IDë¡œ ê²€ìƒ‰í•˜ì—¬ ì •ë³´ ì¶œë ¥)
 void customerManager::viewCustomer() const {
 	int id;
 	bool customerFound = false;
@@ -270,39 +270,39 @@ void customerManager::viewCustomer() const {
 			cout << "Returning to main menu.\n" << endl;
 			return;
 		}
-		//ID·Î °Ë»öÇÏ¿© °í°´À» Ã£´Â´Ù.
+		//IDë¡œ ê²€ìƒ‰í•˜ì—¬ ê³ ê°ì„ ì°¾ëŠ”ë‹¤.
 		for (auto it = customers.begin(); it != customers.end(); ++it) {
 			if (it->id == id) {
-				it->display();  // display() : °í°´ Á¤º¸¸¦ Ãâ·ÂÇÏ´Â ÇÔ¼ö. customer.h¿¡ Á¤ÀÇµÊ
+				it->display();  // display() : ê³ ê° ì •ë³´ë¥¼ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜. customer.hì— ì •ì˜ë¨
 				cout << "\nReturning to menu in 3 seconds.\n";
-				//this_thread::sleep_for(chrono::seconds(3)); VSCODE¿¡¼­ ÀÛµ¿ X
-				sleep(3); // ´ëÃ¼·Î sleep »ç¿ë
+				//this_thread::sleep_for(chrono::seconds(3)); VSCODEì—ì„œ ì‘ë™ X
+				sleep(3); // ëŒ€ì²´ë¡œ sleep ì‚¬ìš©
 				customerFound = true;
 				return;
 			}
 		}
 
-		// °í°´À» Ã£Áö ¸øÇÑ °æ¿ì
+		// ê³ ê°ì„ ì°¾ì§€ ëª»í•œ ê²½ìš°
 		cout << " !! Cannot find customer with the specified ID. Please try again.\n(Enter 0 to exit)" << endl;
 	}
 }
 
-// °í°´ µ¥ÀÌÅÍ¸¦ CSV ÆÄÀÏ¿¡ ÀúÀåÇÏ´Â ÇÔ¼ö
+// ê³ ê° ë°ì´í„°ë¥¼ CSV íŒŒì¼ì— ì €ì¥í•˜ëŠ” í•¨ìˆ˜
 void customerManager::saveToCSV(const string& filename) const {
 	ofstream file(filename);
 
 	if (!file.is_open()) {
-		//ÆÄÀÏÀÌ ¿­¸®Áö ¾ÊÀ¸¸é ¿¡·¯ ¸Ş½ÃÁö Ãâ·Â
+		//íŒŒì¼ì´ ì—´ë¦¬ì§€ ì•Šìœ¼ë©´ ì—ëŸ¬ ë©”ì‹œì§€ ì¶œë ¥
 		cerr << "Cannot open file: " << filename << endl;
 		return;
 	}
 
-	//¸ğµç °í°´ µ¥ÀÌÅÍ¸¦ ÆÄÀÏ¿¡ ±â·Ï
-	for (const auto& customer : customers) { // ¹üÀ§ ±â¹İ for¹®À¸·Î customers °´Ã¼ ¼øÈ¸ 
+	//ëª¨ë“  ê³ ê° ë°ì´í„°ë¥¼ íŒŒì¼ì— ê¸°ë¡
+	for (const auto& customer : customers) { // ë²”ìœ„ ê¸°ë°˜ forë¬¸ìœ¼ë¡œ customers ê°ì²´ ìˆœíšŒ 
 		file << customer.id << ","
 			<< customer.name << ","
 			<< customer.phoneNumber << ","
 			<< customer.gender << endl;
 	}
-	file.close(); //ÆÄÀÏ ´İ±â
+	file.close(); //íŒŒì¼ ë‹«ê¸°
 }

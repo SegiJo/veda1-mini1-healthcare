@@ -1,7 +1,7 @@
 #include <iostream>
-#include "customer_manage.h" // °í°´°ü¸® ´ã´ç Å¬·¡½º
-#include "meal_manage.h" // ½Ä»ç°ü¸® ´ã´ç Å¬·¡½º
-#include "exercise.h" // ¿îµ¿°ü¸® ´ã´ç Å¬·¡½º
+#include "customer_manage.h" // ê³ ê°ê´€ë¦¬ ë‹´ë‹¹ í´ë˜ìŠ¤
+#include "meal_manage.h" // ì‹ì‚¬ê´€ë¦¬ ë‹´ë‹¹ í´ë˜ìŠ¤
+#include "exercise.h" // ìš´ë™ê´€ë¦¬ ë‹´ë‹¹ í´ë˜ìŠ¤
 
 #include "layout.h"
 #include <unistd.h>
@@ -9,7 +9,7 @@
 using namespace std;
 
 /*
-    ¸ŞÀÎ ÇÔ¼öÀÇ ÃÊ±â ¸Ş´º Ãâ·Â ºÎºĞµµ ÇÔ¼ö·Î µû·Î »©¼­ ÀÛ¼ºÇÒ ¿¹Á¤
+    ë©”ì¸ í•¨ìˆ˜ì˜ ì´ˆê¸° ë©”ë‰´ ì¶œë ¥ ë¶€ë¶„ë„ í•¨ìˆ˜ë¡œ ë”°ë¡œ ë¹¼ì„œ ì‘ì„±í•  ì˜ˆì •
 */
 
 int main() {
@@ -19,10 +19,10 @@ int main() {
     string meal_filename = "meal.csv";
     string exercise_filename = "exercises.csv";
 
-    //-------°í°´--------------------------------
-    customerManager custmanager;    // °í°´ °ü¸® °´Ã¼ »ı¼º
+    //-------ê³ ê°--------------------------------
+    customerManager custmanager;    // ê³ ê° ê´€ë¦¬ ê°ì²´ ìƒì„±
     string cust_filename = "customers.csv";
-    custmanager.loadFromCSV(cust_filename);     // ±âÁ¸ CSVÆÄÀÏ¿¡¼­ °í°´ Á¤º¸ ºÒ·¯¿À±â
+    custmanager.loadFromCSV(cust_filename);     // ê¸°ì¡´ CSVíŒŒì¼ì—ì„œ ê³ ê° ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸°
 
     mealmanage mealmanager;
     mealmanager.loadFromCSV(meal_filename);
@@ -32,38 +32,38 @@ int main() {
 
 //---------------------------------------
     do {
-        clearConsole();  // ÄÜ¼Ö È­¸é Áö¿ì±â
+        clearConsole();  // ì½˜ì†” í™”ë©´ ì§€ìš°ê¸°
         showMainMenu();
         cin >> main_num;
 
-        if (main_num == 1) { // °í°´°ü¸® ÀúÀå ³»¿ë Ãâ·Â
+        if (main_num == 1) { // ê³ ê°ê´€ë¦¬ ì €ì¥ ë‚´ìš© ì¶œë ¥
             customerMenu(custmanager);
         }
 
-        // ¸ŞÀÎ ¸Ş´º¿¡ ¿îµ¿ °ü¸® ¿É¼Ç Ãß°¡
+        // ë©”ì¸ ë©”ë‰´ì— ìš´ë™ ê´€ë¦¬ ì˜µì…˜ ì¶”ê°€
         else if (main_num == 2) {
             if (!exerciseMenu(exerciseManager,custmanager)) {
                 continue;
             }
         }
 
-        else if (main_num == 3) { // ½Ä»ç°ü¸® ·¹ÀÌ¾Æ¿ô ÇÔ¼ö¸¦ Ãâ·Â
+        else if (main_num == 3) { // ì‹ì‚¬ê´€ë¦¬ ë ˆì´ì•„ì›ƒ í•¨ìˆ˜ë¥¼ ì¶œë ¥
 
-            if (!mealMenu(mealmanager,custmanager)) { // 240808 false°ªÀÌ µé¾î¿Ã ½Ã ´Ù½Ã µ¹¾Æ¿Í continue ¼öÇà
-                continue;  // 240808 ¸ŞÀÎ ¸Ş´º·Î µ¹¾Æ°¡±â
+            if (!mealMenu(mealmanager,custmanager)) { // 240808 falseê°’ì´ ë“¤ì–´ì˜¬ ì‹œ ë‹¤ì‹œ ëŒì•„ì™€ continue ìˆ˜í–‰
+                continue;  // 240808 ë©”ì¸ ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°
             }
         }
         else if (main_num != 0) {
-            cout << "\n             ¡Ø Àß¸øµÈ¹øÈ£ ¡Ø" << endl;
-            //this_thread::sleep_for(chrono::seconds(1)); VSCODE¿¡¼­ ÀÛµ¿ X
-            sleep(1); // ´ëÃ¼·Î sleep »ç¿ë
+            cout << "\n             â€» ì˜ëª»ëœë²ˆí˜¸ â€»" << endl;
+            //this_thread::sleep_for(chrono::seconds(1)); VSCODEì—ì„œ ì‘ë™ X
+            sleep(1); // ëŒ€ì²´ë¡œ sleep ì‚¬ìš©
         }
 
-    } while (main_num != 0); // 240808 ¹İº¹ÀûÀ¸·Î Ç¥½ÃÇÏ°í 0À» ÀÔ·Â½Ã Á¾·á¸¦ À§ÇØ do-while¹® »ç¿ë 
+    } while (main_num != 0); // 240808 ë°˜ë³µì ìœ¼ë¡œ í‘œì‹œí•˜ê³  0ì„ ì…ë ¥ì‹œ ì¢…ë£Œë¥¼ ìœ„í•´ do-whileë¬¸ ì‚¬ìš© 
 
-    custmanager.saveToCSV(cust_filename); // ÀÔ·Â ¹× ¼öÁ¤ÇÑ ³»¿ë ÀúÀå
+    custmanager.saveToCSV(cust_filename); // ì…ë ¥ ë° ìˆ˜ì •í•œ ë‚´ìš© ì €ì¥
     exerciseManager.saveToCSV(exercise_filename);
-    mealmanager.saveToCSV(meal_filename); // ÀÔ·Â ¹× ¼öÁ¤ÇÑ ³»¿ë ÀúÀå
+    mealmanager.saveToCSV(meal_filename); // ì…ë ¥ ë° ìˆ˜ì •í•œ ë‚´ìš© ì €ì¥
 
     clearConsole();
     cout << "Exiting the healthcare program. Thank you for using it." << endl;

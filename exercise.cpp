@@ -19,7 +19,7 @@ void ExerciseManager::loadFromCSV(const string& filename) {
     }
 
     string line;
-    while (getline(file, line)) { // getlineÀ¸·Î ÅäÅ« ´ÜÀ§·Î ÀĞ¾îµéÀÓ
+    while (getline(file, line)) { // getlineìœ¼ë¡œ í† í° ë‹¨ìœ„ë¡œ ì½ì–´ë“¤ì„
         stringstream ss(line);
         string idStr, name, type, durationStr;
 
@@ -61,8 +61,8 @@ void ExerciseManager::addExercise(const Customer& cust,const string& type, int d
 void ExerciseManager::modifyExercise(int id, const string& type,int duration) {
     for (auto& m : exercises) {
         if (m.id == id) {
-            m.type = type;               // food ¼öÁ¤
-            m.duration = duration; // totalCalories ¼öÁ¤
+            m.type = type;               // food ìˆ˜ì •
+            m.duration = duration; // totalCalories ìˆ˜ì •
             return;
         }
     }

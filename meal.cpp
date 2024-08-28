@@ -8,12 +8,12 @@ void mealmanage::loadFromCSV(const string& filename) {
     ifstream file(filename);
 
     if (!file.is_open()) {
-        cerr << "ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù: " << filename << endl;
+        cerr << "íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤: " << filename << endl;
         return;
     }
 
     string line;
-    while (getline(file, line)) { // getlineÀ¸·Î ÅäÅ« ´ÜÀ§·Î ÀÐ¾îµéÀÓ
+    while (getline(file, line)) { // getlineìœ¼ë¡œ í† í° ë‹¨ìœ„ë¡œ ì½ì–´ë“¤ìž„
         stringstream ss(line);
         string idStr, name, food, totalCaloriesStr;
 
@@ -32,11 +32,11 @@ void mealmanage::loadFromCSV(const string& filename) {
     file.close();
 }
 
-void mealmanage::saveToCSV(const string& filename) { // º¯°æ ³»¿ë ÀúÀå
+void mealmanage::saveToCSV(const string& filename) { // ë³€ê²½ ë‚´ìš© ì €ìž¥
     ofstream file(filename);
 
     if (!file.is_open()) {
-        cerr << "ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù: " << filename << endl;
+        cerr << "íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤: " << filename << endl;
         return;
     }
 
@@ -48,26 +48,26 @@ void mealmanage::saveToCSV(const string& filename) { // º¯°æ ³»¿ë ÀúÀå
 }
 
 void mealmanage::addMeal(const Customer& cust, const string& food, int totalCalories) {
-    // customerÀÇ id¿Í nameÀ» ÀÌ¿ëÇÏ¿© meal »ý¼º
+    // customerì˜ idì™€ nameì„ ì´ìš©í•˜ì—¬ meal ìƒì„±
     meals.emplace_back(cust.id, cust.name, food, totalCalories);
 }
 
 void mealmanage::modifyMeal(int id, const string& food, int totalCalories) {
     for (auto& m : meals) {
         if (m.id == id) {
-            m.food = food;               // food ¼öÁ¤
-            m.totalCalories = totalCalories; // totalCalories ¼öÁ¤
+            m.food = food;               // food ìˆ˜ì •
+            m.totalCalories = totalCalories; // totalCalories ìˆ˜ì •
             return;
         }
     }
     cout << "No meal found with ID: " << id << endl;
 }
 
-void mealmanage::deleteMeal(int id) { // ½Ä»ç°ü¸® »èÁ¦ ±â´É
+void mealmanage::deleteMeal(int id) { // ì‹ì‚¬ê´€ë¦¬ ì‚­ì œ ê¸°ëŠ¥
     meals.erase(remove_if(meals.begin(), meals.end(), [id](const meal& m) { return m.id == id; }), meals.end());
 }
 
-void mealmanage::displayMeals() const { // csv¿¡ ÀúÀåµÇ¾îÀÖ´Â °ª Ãâ·Â
+void mealmanage::displayMeals() const { // csvì— ì €ìž¥ë˜ì–´ìžˆëŠ” ê°’ ì¶œë ¥
     for (const auto& meal : meals) {
         meal.display();
     }

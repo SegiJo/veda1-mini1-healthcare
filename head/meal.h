@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class meal { // ½Ä»ç°ü¸® Å¬·¡½º
+class meal { // ì‹ì‚¬ê´€ë¦¬ í´ë˜ìŠ¤
 public:
     int id;
     string name;
@@ -16,7 +16,7 @@ public:
     meal(int id, string name, string food, int totalCalories)
         : id(id), name(name), food(food), totalCalories(totalCalories) {}
 
-    void display() const { // Ãâ·Â ÇÔ¼ö
+    void display() const { // ì¶œë ¥ í•¨ìˆ˜
         cout << "ID: " << id << ", Name: " << name << ", Food: " << food << ", Total Calories: " << totalCalories << endl;
     }
 };

@@ -6,27 +6,27 @@
 
 using namespace std;
 
-// °í°´Á¤º¸¸¦ ³ªÅ¸³»´Â Å¬·¡½º
+// ê³ ê°ì •ë³´ë¥¼ ë‚˜íƒ€ë‚´ëŠ” í´ë˜ìŠ¤
 class Customer {
 public:
-    int id;                // °í°´ ID
-    string name;           // °í°´ ÀÌ¸§
-    string phoneNumber;    // °í°´ ÀüÈ­¹øÈ£
-    string gender;         // °í°´ ¼ºº°
+    int id;                // ê³ ê° ID
+    string name;           // ê³ ê° ì´ë¦„
+    string phoneNumber;    // ê³ ê° ì „í™”ë²ˆí˜¸
+    string gender;         // ê³ ê° ì„±ë³„
 
-    // »ı¼ºÀÚ : °í°´ Á¤º¸¸¦ ÃÊ±âÈ­
+    // ìƒì„±ì : ê³ ê° ì •ë³´ë¥¼ ì´ˆê¸°í™”
     Customer(int id, string name, string phoneNumber, string gender)
         : id(id), name(name), phoneNumber(phoneNumber), gender(gender) {}
 
-    // °í°´ Á¤º¸¸¦ Ãâ·ÂÇÏ´Â ÇÔ¼ö
+    // ê³ ê° ì •ë³´ë¥¼ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜
     void display() const {
-        cout << "\n¢¹ ID: " << id
+        cout << "\nâ–· ID: " << id
             << "| Name: " << name
             << "| Phone: " << phoneNumber
             << "| Gender: " << gender << endl;
     }
 
-    // NEW ID¸¦ ¹İÈ¯ÇÏ´Â ¸â¹ö ÇÔ¼ö
+    // NEW IDë¥¼ ë°˜í™˜í•˜ëŠ” ë©¤ë²„ í•¨ìˆ˜
     int getId() const { return id; }
 };
 

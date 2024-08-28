@@ -5,44 +5,44 @@
 #include <vector>
 #include <map>
 
-#include "customer.h" // NEW Çì´õÆÄÀÏ Ãß°¡
+#include "customer.h" // NEW í—¤ë”íŒŒì¼ ì¶”ê°€
 
 using namespace std;
 
 class Exercise {
 public:
-    int id; // customer »ç¿ëÀÚ ID
+    int id; // customer ì‚¬ìš©ì ID
     string name;
-    string type; // ¿îµ¿ À¯Çü
-    int duration; // ¿îµ¿ ½Ã°£
+    string type; // ìš´ë™ ìœ í˜•
+    int duration; // ìš´ë™ ì‹œê°„
 
-    // Exercise °´Ã¼¸¦ »ı¼ºÇÏ´Â »ı¼ºÀÚ ÇÔ¼ö
+    // Exercise ê°ì²´ë¥¼ ìƒì„±í•˜ëŠ” ìƒì„±ì í•¨ìˆ˜
     Exercise(int id, string name, string type, int duration)
         : id(id), name(name) ,type(type), duration(duration) {}
 
-    void display() const; // ¿îµ¿ ±â·Ï Á¤º¸¸¦ Ãâ·ÂÇÏ´Â ¸â¹ö ÇÔ¼ö
+    void display() const; // ìš´ë™ ê¸°ë¡ ì •ë³´ë¥¼ ì¶œë ¥í•˜ëŠ” ë©¤ë²„ í•¨ìˆ˜
 
     bool operator==(const Exercise& other) const {
         return (type == other.type) && (duration == other.duration);
     }
 };
 
-// ¿îµ¿ ±â·ÏµéÀ» °ü¸®ÇÏ´Â ExerciseManager Å¬·¡½º
+// ìš´ë™ ê¸°ë¡ë“¤ì„ ê´€ë¦¬í•˜ëŠ” ExerciseManager í´ë˜ìŠ¤
 class ExerciseManager {
 private:
-    vector<Exercise> exercises; //  ¸ğµç ¿îµ¿ ±â·ÏÀ» ÀúÀåÇÏ´Â º¤ÅÍ
-    map<string, vector<Exercise>> exercisesByType; // ¿îµ¿ Á¾·ùº°·Î ¿îµ¿ ±â·ÏÀ» ÀúÀåÇÏ´Â ¸Ê ÄÁÅ×ÀÌ³Ê
+    vector<Exercise> exercises; //  ëª¨ë“  ìš´ë™ ê¸°ë¡ì„ ì €ì¥í•˜ëŠ” ë²¡í„°
+    map<string, vector<Exercise>> exercisesByType; // ìš´ë™ ì¢…ë¥˜ë³„ë¡œ ìš´ë™ ê¸°ë¡ì„ ì €ì¥í•˜ëŠ” ë§µ ì»¨í…Œì´ë„ˆ
 
 public:
-    void loadFromCSV(const string& filename); // ¿îµ¿ ±â·Ï µ¥ÀÌÅÍ ºÒ·¯¿À±â
-    void saveToCSV(const string& filename); // ¿îµ¿ ±â·Ï µ¥ÀÌÅÍ ÀúÀå
+    void loadFromCSV(const string& filename); // ìš´ë™ ê¸°ë¡ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸°
+    void saveToCSV(const string& filename); // ìš´ë™ ê¸°ë¡ ë°ì´í„° ì €ì¥
 
-    void addExercise(const Customer& cust,const string& type, int duration); // ¿îµ¿ ±â·Ï Ãß°¡ NEW ¼öÁ¤
-    void modifyExercise(int id, const string& type,int duration); // ¿îµ¿ ±â·Ï ¼öÁ¤ NEW index->id ·Î ¼öÁ¤
-    void deleteExercise(int id); // ¿îµ¿ ±â·Ï »èÁ¦ NEW index->id ·Î ¼öÁ¤
+    void addExercise(const Customer& cust,const string& type, int duration); // ìš´ë™ ê¸°ë¡ ì¶”ê°€ NEW ìˆ˜ì •
+    void modifyExercise(int id, const string& type,int duration); // ìš´ë™ ê¸°ë¡ ìˆ˜ì • NEW index->id ë¡œ ìˆ˜ì •
+    void deleteExercise(int id); // ìš´ë™ ê¸°ë¡ ì‚­ì œ NEW index->id ë¡œ ìˆ˜ì •
 
-    void displayExercises() const; // ¿îµ¿ ±â·Ï Ãâ·Â
-    const vector<Exercise>& getExercisesByType(const string& type) const; // Æ¯Á¤ ¿îµ¿ Á¾·ù¿¡ ÇØ´çÇÏ´Â ¿îµ¿ ±â·ÏµéÀ» ¹İÈ¯ÇÏ´Â ¸â¹ö ÇÔ¼ö
+    void displayExercises() const; // ìš´ë™ ê¸°ë¡ ì¶œë ¥
+    const vector<Exercise>& getExercisesByType(const string& type) const; // íŠ¹ì • ìš´ë™ ì¢…ë¥˜ì— í•´ë‹¹í•˜ëŠ” ìš´ë™ ê¸°ë¡ë“¤ì„ ë°˜í™˜í•˜ëŠ” ë©¤ë²„ í•¨ìˆ˜
 };
 
 #endif 
