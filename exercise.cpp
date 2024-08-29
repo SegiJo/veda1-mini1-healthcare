@@ -85,10 +85,11 @@ void ExerciseManager::modifyExercise(int id, const string& type,int duration) {
         if (e.id == id) {
             e.type = type;               
             e.duration = duration; 
+            cout << "수정 완료 되었습니다."<< endl;
             return;
         }
     }
-    cout << "No exercises found with ID: " << id << endl;
+    sleep(2);
     saveToCSV("exercises.csv");
 }
 
@@ -141,9 +142,9 @@ void ExerciseManager::displayExercises() const {
     bool hasExercises = false;
     for (const auto& exercise : exercises) {
         if (!exercise.type.empty() && exercise.duration > 0) {
-            cout << "ID: " << exercise.id << ", 이름: " << exercise.name 
-                 << ", 운동 유형: " << exercise.type 
-                 << ", 운동 시간: " << exercise.duration << " 분" << endl;
+            cout << "ID: " << exercise.id << "| 이름: " << exercise.name 
+                 << "| 운동 유형: " << exercise.type 
+                 << "| 운동 시간: " << exercise.duration << " 분" << endl;
             hasExercises = true;
         }
     }
@@ -166,7 +167,8 @@ void ExerciseManager::displayAllCustomers() const {
     // 고객 목록 출력
     cout << "현재 저장된 고객 목록:" << endl;
     for (const auto& exercise : exercises) {
-        cout << "ID: " << exercise.id << ", Name: " << exercise.name << endl;
+        cout << "ID: " << exercise.id << "| 이름: " << exercise.name 
+        <<  "| 운동 유형: " << exercise.type << " | 운동 시간: " << exercise.duration << " 분" << "\n\n";
     }
 }
 

@@ -143,12 +143,13 @@ bool exerciseMenu(ExerciseManager& manager, customerManager& custmanager) {
             string type;
             int duration;
 
-            cout << "ID of Exercise to Modify: ";
-            cin >> id; // NEW Customer ID�� ���� ��ȸ
-
-            cout << "New Exercise Type: ";
+            manager.displayAllCustomers(); // 현재 존재하는 고객님 리스트 표시
+            
+            cout << "수정할 고객 ID: ";
+            cin >> id; // NEW Customer ID
+            cout << "수정할 운동 유형: ";
             cin >> type;
-            cout << "New Exercise Duration (minutes): ";
+            cout << "수정할 운동 시간(분): ";
             cin >> duration;
 
             manager.modifyExercise(id, type, duration);
@@ -227,7 +228,6 @@ bool mealMenu(mealmanage& mealmanager, customerManager& custmanager) { // NEW �
             int id, totalCalories;
             string food;
 
-            cout << "ID of Meal to Modify: ";
             cin >> id; // NEW Customer ID�� ���� ��ȸ
 
             cout << "New Food: ";
@@ -240,9 +240,11 @@ bool mealMenu(mealmanage& mealmanager, customerManager& custmanager) { // NEW �
         }
         else if (choice == 3) { // �Ļ���� ���� �Լ� ȣ��
             int id;
-            cout << "ID of Meal to Delete: ";
-            cin >> id;
-            mealmanager.deleteMeal(id);
+            string food;
+            mealmanager.displayAllCustomers();
+            cout << "삭제할 고객님의 ID와 섭취한 음식을 입력: ";
+            cin >> id >> food;
+            mealmanager.deleteMeal(id, food);
         }
         else if (choice == 4) { // ����� �Ļ���� csv���� ���� ���
             mealmanager.displayMeals();
