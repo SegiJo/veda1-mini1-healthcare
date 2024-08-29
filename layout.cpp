@@ -155,9 +155,11 @@ bool exerciseMenu(ExerciseManager& manager, customerManager& custmanager) {
         }
         else if (choice == 3) {
             int id;
-            cout << "Id of Exercise to Delete: ";
-            cin >> id;
-            manager.deleteExercise(id);
+            string type;
+            manager.displayAllCustomers();
+            cout << "삭제할 고객님의 ID와 운동 유형을 입력: ";
+            cin >> id >> type;
+            manager.deleteExercise(id, type);
         }
         else if (choice == 4) {
             manager.displayExercises();
