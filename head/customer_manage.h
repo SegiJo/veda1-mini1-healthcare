@@ -20,6 +20,7 @@ public:
 	void addCustomer();
 	void modifyCustomer(); 
 	void deleteCustomer(); 
+	void printCustomerList() const;  // [08/29] 추가!
 
  	Customer* getCustomerById(int id);
 
