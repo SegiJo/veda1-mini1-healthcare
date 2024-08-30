@@ -39,7 +39,9 @@ public:
 
     void addExercise(const Customer& cust,const string& type, int duration); // 운동 기록 추가 NEW 수정
     void modifyExercise(int id, const string& type,int duration); // 운동 기록 수정 NEW index->id 로 수정
-    void deleteExercise(int id); // 운동 기록 삭제 NEW index->id 로 수정
+    void deleteExercise(int id, const string& type); // 운동 기록 삭제 NEW index->id 로 수정
+
+    void displayAllCustomers() const;
 
     void displayExercises() const; // 운동 기록 출력
     const vector<Exercise>& getExercisesByType(const string& type) const; // 특정 운동 종류에 해당하는 운동 기록들을 반환하는 멤버 함수

@@ -24,6 +24,8 @@ public:
 
  	Customer* getCustomerById(int id);
 
+	void displayAllCustomers();
+
 	void viewCustomer() const; 
 };
 
