@@ -2,6 +2,7 @@
 #define CUSTOMER_H
 
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 using namespace std;
@@ -20,10 +21,12 @@ public:
 
     // 고객 정보를 출력하는 함수
     void display() const {
-        cout << "\n▷ ID: " << id
-            << "| Name: " << name
-            << "| Phone: " << phoneNumber
-            << "| Gender: " << gender << endl;
+        cout << "\n----------------------------------------" << endl;
+        cout << left << setw(10) << "ID" << ": " << id << endl
+            << left << setw(10) << "Name" << ": " << name << endl
+            << left << setw(10) << "Phone" << ": " << phoneNumber << endl
+            << left << setw(10) << "Gender" << ": " << gender << endl;
+        cout << "----------------------------------------" << endl;
     }
 
     // NEW ID를 반환하는 멤버 함수

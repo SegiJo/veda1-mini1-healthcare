@@ -7,6 +7,7 @@
 #include <chrono>
 #include <limits>
 #include <unistd.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -26,7 +27,7 @@ void customerManager::loadFromCSV(const string& filename) {
 
     // 파일이 열리지 않으면 에러 메시지 출력
     if (!file.is_open()) {
-        cerr << "파일을 열 수 없습니다: " << filename << endl;
+        cerr << " ※ 파일을 열 수 없습니다: " << filename << endl;
         return;
     }
 
@@ -53,35 +54,60 @@ void customerManager::loadFromCSV(const string& filename) {
 }
 
 
+// // 고객 ID를 나열하여 출력하는 함수
+// void customerManager::printCustomerList() const {
+//     cout << "\n현재 고객 ID 목록 | ";
+
+//     if (customers.empty()) {
+//         cout << "등록된 고객이 없습니다." << endl;
+//         return;
+//     }
+
+//     for (const auto& customer : customers) {
+//         cout << customer.id << " ";
+//     }
+
+//     cout << "\n\n"; // 모든 ID 출력 후 줄바꿈 추가
+// }
+
 // 고객 ID를 나열하여 출력하는 함수
 void customerManager::printCustomerList() const {
-    cout << "\n현재 고객 ID 목록 | ";
+    cout << "\n\033[1;33m\n[현재 고객 ID 목록]\n\033[0m" << endl;
 
     if (customers.empty()) {
         cout << "등록된 고객이 없습니다." << endl;
         return;
     }
 
+    cout << "---------------------------------" << endl;
+
+    int count = 0;
     for (const auto& customer : customers) {
-        cout << customer.id << " ";
+        cout << setw(5) << customer.id << " ";  // ID를 5칸으로 정렬하여 출력
+        count++;
+
+        // 한 줄에 10개의 ID를 출력한 후 줄 바꿈
+        if (count % 10 == 0) {
+            cout << "\n";
+        }
     }
 
-    cout << "\n\n"; // 모든 ID 출력 후 줄바꿈 추가
+    cout << "\n---------------------------------" << endl;
+    cout << "총 " << count << "명의 고객이 등록되어 있습니다.\n\n"; // 총 고객 수 출력
 }
-
 // 새로운 고객을 추가하는 함수 (간단한 입력을 통해 정보 입력)
 void customerManager::addCustomer() {
     int id;
     string name, phoneNumber, gender;
 
     if (customers.size() >= 10) {
-        cout << "더 이상 고객을 추가할 수 없습니다. 일부 고객 정보를 삭제하십시오. 메뉴로 돌아갑니다." << endl;
+        cout << " 더 이상 고객을 추가할 수 없습니다. 일부 고객 정보를 삭제하십시오. 메뉴로 돌아갑니다." << endl;
         sleep(1); // 잠시 대기 후 메뉴로 돌아감
         return;
     }
 
     //--------상단 안내 메시지---------
-    cout << "\n[ 고객 정보를 입력하세요. (취소는 0 입력) ]\n" << endl;
+    cout << "\033[1;33m\n[ 고객 정보를 입력하세요. (취소는 0 입력) ]\n\033[0m" << endl;
 
     //--------ID 입력---------
     while (true) {
@@ -157,15 +183,9 @@ void customerManager::addCustomer() {
     }
 
     customers.emplace_back(id, name, phoneNumber, gender);
-    cout << "\033[38;5;48m";
-	cout << "╔════════════════════════════╗" << endl;
-	cout << "║  고객이 추가되었습니다!    ║" << endl;
-	cout << "╚════════════════════════════╝" << endl;
-	cout << "\033[0m";
+	cout << "--------------------------------------------------------" << endl;
+	cout << " ▷ 고객이 추가되었습니다!" << endl;
 	sleep(2);
-
-
-
     saveToCSV("customers.csv"); // 데이터 저장
 }
 
@@ -173,15 +193,15 @@ void customerManager::addCustomer() {
 // 고객을 삭제하는 함수(ID로 검색하여 삭제)
 void customerManager::deleteCustomer() {
     int id;
-
     // 고객 목록 출력
     printCustomerList();
-    cout << "삭제할 고객의 ID를 입력하세요 (모두 삭제하려면 -1 입력) >> ";
+    cout << "삭제할 고객의 ID (모두 삭제하려면 -1 입력) >> ";
     cin >> id;
 
     if (id == -1) {
         customers.clear();
-        cout << "모든 고객이 삭제되었습니다." << endl;
+        cout << "--------------------------------------------------------" << endl;
+        cout << " ▷ 모든 고객이 삭제되었습니다." << endl; sleep(2);
         saveToCSV("customers.csv");
         return;
     }
@@ -189,13 +209,14 @@ void customerManager::deleteCustomer() {
     for (auto it = customers.begin(); it != customers.end(); ++it) {
         if (it->id == id) {
             customers.erase(it);
-            cout << "고객이 삭제되었습니다." << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << " ▷ ID "<<id<< " 고객이 삭제되었습니다." << endl;sleep(2);
             saveToCSV("customers.csv");
             return;
         }
     }
-
-    cout << "지정된 ID의 고객을 찾을 수 없습니다." << endl;
+    cout << "--------------------------------------------------------" << endl;
+    cout << " ▷ 지정된 ID의 고객을 찾을 수 없습니다." << endl;sleep(2);
 
     saveToCSV("customers.csv"); // 데이터 저장
 }
@@ -221,14 +242,14 @@ void customerManager::modifyCustomer() {
 
             cout << "새 성별을 입력하세요 >> ";
             getline(cin, it->gender);
-
-            cout << "고객 정보가 업데이트되었습니다." << endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << " ▷ 고객 정보가 업데이트되었습니다." << endl;sleep(2);
             saveToCSV("customers.csv");
             return;
         }
     }
-
-    cout << "지정된 ID의 고객을 찾을 수 없습니다. 다시 시도하십시오." << endl;
+    cout << "--------------------------------------------------------" << endl;
+    cout << "지정된 ID의 고객을 찾을 수 없습니다. 다시 시도하십시오." << endl;sleep(2);
 
     saveToCSV("customers.csv"); // 데이터 저장
 }
@@ -245,21 +266,21 @@ void customerManager::viewCustomer() const {
         cin >> id;
 
         if (id == 0) {
-            cout << "메인 메뉴로 돌아갑니다.\n" << endl;
+            cout << " ▷ 메인 메뉴로 돌아갑니다.\n" << endl;
             return;
         }
 
         for (auto it = customers.begin(); it != customers.end(); ++it) {
             if (it->id == id) {
                 it->display();  // display() : 고객 정보를 출력하는 함수. customer.h에 정의됨
-                cout << "\n3초 후 메뉴로 돌아갑니다.\n";
-                sleep(3);
+                cout << "\n ▷ 3초 후 메뉴로 돌아갑니다.\n";
+                sleep(4);
                 customerFound = true;
                 return;
             }
         }
 
-        cout << "지정된 ID의 고객을 찾을 수 없습니다. 다시 시도하십시오.\n(종료하려면 0을 입력)" << endl;
+        cout << " -- 지정된 ID의 고객을 찾을 수 없습니다. 다시 시도하십시오.\n" << endl;sleep(2);
     }
 }
 
@@ -267,7 +288,7 @@ void customerManager::viewCustomer() const {
 void customerManager::saveToCSV(const string& filename) const {
     ofstream file(filename);
     if (!file.is_open()) {
-        cerr << "파일을 열 수 없습니다: " << filename << endl;
+        cerr << " ※파일을 열 수 없습니다: " << filename << endl;
         return;
     }
     for (const auto& customer : customers) {
