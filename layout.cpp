@@ -93,7 +93,7 @@ bool customerMenu(customerManager& custmanager) {
             return false;
         }
         else {
-            cout << "잘못된 선택입니다." << endl;
+            cout << " -- 잘못된 선택입니다." << endl;
         }
     } while (choice != 0); // 0�� �Է��ϸ� ���θ޴��� ���ư�.
     return true; // NEW �޴��� ���������� ������� �ʰ� ������ ����� ��� true�� ��ȯ
@@ -132,19 +132,22 @@ bool exerciseMenu(ExerciseManager& manager, customerManager& custmanager) {
             string type;
             int duration;
 
-            cout << "고객 ID: ";
-            cin >> id;
+            // 고객 ID 리스트를 출력
+            custmanager.printCustomerList();
 
+            cout << "고객 ID >> ";
+            cin >> id;
+            if (id == 0) continue;
             Customer* cust = custmanager.getCustomerById(id); 
             if (cust == nullptr) {
-                cout << "해당 ID의 고객이 없습니다: " << id << endl;
-                sleep(3);
+                cout << " -- 해당 ID의 고객이 없습니다" << id << endl;
+                sleep(2);
                 continue;
             }
 
-            cout << "운동 유형: ";
+            cout << "운동 유형 >> ";
             cin >> type;
-            cout << "운동 시간 (분): ";
+            cout << "운동 시간 (분) >> ";
             cin >> duration;
             manager.addExercise(*cust, type, duration);
         }
@@ -155,11 +158,12 @@ bool exerciseMenu(ExerciseManager& manager, customerManager& custmanager) {
 
             manager.displayAllCustomers(); // 현재 존재하는 고객 리스트 표시
             
-            cout << "수정할 고객 ID: ";
+            cout << "수정할 고객 ID>> ";
             cin >> id; 
-            cout << "수정할 운동 유형: ";
+            if (id == 0) continue;
+            cout << "수정할 운동 유형>> ";
             cin >> type;
-            cout << "수정할 운동 시간(분): ";
+            cout << "수정할 운동 시간(분)>> ";
             cin >> duration;
 
             manager.modifyExercise(id, type, duration);
@@ -168,19 +172,18 @@ bool exerciseMenu(ExerciseManager& manager, customerManager& custmanager) {
             int id;
             string type;
             manager.displayAllCustomers();
-            cout << "삭제할 고객님의 ID와 운동 유형을 입력: ";
+            cout << "삭제할 고객 정보 : [ID] [운동] 입력 >> ";
             cin >> id >> type;
             manager.deleteExercise(id, type);
         }
         else if (choice == 4) {
             manager.displayExercises();
-            sleep(3); 
         }
         else if (choice == 0) {
             return false;
         }
         else {
-            cout << "잘못된 선택입니다." << endl;
+            cout << " -- 잘못된 선택입니다." << endl;
         }
     } while (choice != 0);
     return true; 
@@ -218,18 +221,24 @@ bool mealMenu(mealmanage& mealmanager, customerManager& custmanager) {
             int id, totalCalories;
             string name, food;
 
-            cout << "고객 ID: ";
+            // 고객 ID 리스트를 출력
+            custmanager.printCustomerList();
+
+            cout << "고객 ID >> ";
             cin >> id;
+
+            if (id == 0) break;
 
             Customer* cust = custmanager.getCustomerById(id);
             if (cust == nullptr) {
-                cout << "해당 ID의 고객이 없습니다: " << id << endl;sleep(2);
+                cout << " -- 해당 ID의 고객이 없습니다: " << id << endl;sleep(2);
                 continue;
             }
 
-            cout << "음식: ";
+            cout << "음식 >> ";
             cin >> food;
-            cout << "총 칼로리: ";
+            if (food == "0") continue;
+            cout << "총 칼로리 >> ";
             cin >> totalCalories;
 
             mealmanager.addMeal(*cust, food, totalCalories);
@@ -237,13 +246,14 @@ bool mealMenu(mealmanage& mealmanager, customerManager& custmanager) {
         else if (choice == 2) { 
             int id, totalCalories;
             string food;
-
-            cout << "수정할 식단의 고객 ID: ";
+            mealmanager.displayAllCustomers();
+            cout << "수정할 식단의 고객 ID >> ";
             cin >> id;
-
-            cout << "새 음식: ";
+            if (id == 0) continue;
+            cout << "새 음식 >> ";
             cin >> food;
-            cout << "새 총 칼로리: ";
+            if (food == "0") continue;
+            cout << "새 총 칼로리 >> ";
             cin >> totalCalories;
 
             mealmanager.modifyMeal(id, food, totalCalories);
@@ -252,8 +262,9 @@ bool mealMenu(mealmanage& mealmanager, customerManager& custmanager) {
             int id;
             string food;
             mealmanager.displayAllCustomers();
-            cout << "삭제할 고객님의 ID와 섭취한 음식을 입력: ";
+            cout << "삭제할 고객 정보 : [ID] [음식] 입력 >> ";
             cin >> id >> food;
+            if (id == 0) continue;
             mealmanager.deleteMeal(id, food);
         }
         else if (choice == 4) { 
