@@ -4,17 +4,17 @@
 #include <sstream>
 #include <algorithm>
 #include <unistd.h>
-
+#include <iomanip>
 using namespace std;
 
-void Exercise::display() const {
-    cout << "ID: " << id << ", Name: " << name << ", Exercise Type: " << type << ", Duration: " << duration << " minutes" << endl;
-}
+// void Exercise::display() const {
+//     cout << "ID: " << id << ", Name: " << name << ", Exercise Type: " << type << ", Duration: " << duration << " minutes" << endl;
+// }
 
 void ExerciseManager::loadFromCSV(const string& filename) {
     ifstream file(filename);
     if (!file.is_open()) {
-        cerr << "Cannot open file: " << filename << endl;
+        cerr << " ※ 파일을 열수 없습니다 : " << filename << endl;
         return;
     }
 
@@ -42,7 +42,7 @@ void ExerciseManager::loadFromCSV(const string& filename) {
 void ExerciseManager::saveToCSV(const string& filename) {
     ofstream file(filename);
     if (!file.is_open()) {
-        cerr << "Cannot open file: " << filename << endl;
+        cerr << " ※ 파일을 열수 없습니다 : " << filename << endl;
         return;
     }
 
@@ -52,11 +52,6 @@ void ExerciseManager::saveToCSV(const string& filename) {
 
     file.close();
 }
-
-// void ExerciseManager::addExercise(const Customer& cust,const string& type, int duration) {
-//     exercises.emplace_back(cust.id,cust.name,type,duration);
-//     saveToCSV("exercises.csv");
-// }
 
 void ExerciseManager::addExercise(const Customer& cust, const string& type, int duration) {
     // 같은 ID를 가진 비어있는 운동 정보를 찾음
@@ -69,15 +64,16 @@ void ExerciseManager::addExercise(const Customer& cust, const string& type, int 
         // 비어있는 운동 정보를 찾았다면, 그 자리에 새 정보를 덮어씀
         it->type = type;
         it->duration = duration;
-        cout << "ID " << cust.id << "번 고객님 운동 정보를 업데이트함." << endl;
+        cout << "--------------------------------------------------------" << endl;
+        cout << " ▷ ID " << cust.id << "번 고객님 운동 정보를 업데이트했습니다." << endl;sleep(2);
     } else {
         // 비어있는 운동 정보가 없다면, 새로운 Exercise 객체를 추가
         exercises.emplace_back(cust.id, cust.name, type, duration);
-        cout << "ID " << cust.id << "번 고객님 새로운 운동 정보를 추가함." << endl;
+        cout << "--------------------------------------------------------" << endl;
+        cout << " ▷ ID " << cust.id << "번 고객님 새로운 운동 정보를 추가했습니다." << endl;sleep(2);
     }
 
     saveToCSV("exercises.csv");
-    sleep(2);
 }
 
 void ExerciseManager::modifyExercise(int id, const string& type,int duration) {
@@ -85,7 +81,8 @@ void ExerciseManager::modifyExercise(int id, const string& type,int duration) {
         if (e.id == id) {
             e.type = type;               
             e.duration = duration; 
-            cout << "수정 완료 되었습니다."<< endl;
+            cout << "--------------------------------------------------------" << endl;
+            cout << " ▷ 수정 완료 되었습니다."<< endl;sleep(2);
             return;
         }
     }
@@ -103,72 +100,100 @@ void ExerciseManager::deleteExercise(int id, const string& type) {
     if (it != exercises.end()) {
         it->type.clear();  // 운동 유형을 빈 문자열로 초기화
         it->duration = 0;  // 운동 시간을 0으로 초기화
-
-        cout << "ID " << id << " 번 고객님의 '" << type << "' 운동 정보가 삭제." << endl;
+        cout << "--------------------------------------------------------" << endl;
+        cout << " ▷ ID " << id << " 번 고객님의 '" << type << "' 운동 정보가 삭제돼었습니다." << endl;
         saveToCSV("exercises.csv");
         sleep(2);
     } else {
-        cout << "ID " << id << " 번 고객님의 '" << type << "' 운동 정보를 찾음." << endl;
+        cout << "--------------------------------------------------------" << endl;
+        cout << " ▷ ID " << id << " 번 고객님의 '" << type << "' 운동 정보를 찾았습니다." << endl;sleep(2);
     }
 }
-
-// void ExerciseManager::deleteExercise(int id) {
-
-//     for (auto& exercise : exercises) {
-//         if (exercise.id == id) {
-//             exercise.type.clear();  // 운동 유형을 빈 문자열로 clear
-//             exercise.duration = 0;  // int형은 clear()함수가 안됨. 운동 시간을 0으로 초기화
-
-//             cout << id << " 번 고객님의 운동 정보가 삭제됨." << endl;
-//             sleep(3);
-//             break;
-//         }
-//     }
-//     saveToCSV("exercises.csv");
-
-//     // 이전 코드
-//     //exercises.erase(remove_if(exercises.begin(), exercises.end(), [id](const Exercise& m) { return m.id == id; }), exercises.end());
-//     //saveToCSV("exercises.csv");
-// }
 
 
 // void ExerciseManager::displayExercises() const {
+//     bool hasExercises = false;
 //     for (const auto& exercise : exercises) {
-//         exercise.display();
+//         if (!exercise.type.empty() && exercise.duration > 0) {
+//             cout << "ID: " << exercise.id << "| 이름: " << exercise.name 
+//                  << "| 운동 유형: " << exercise.type 
+//                  << "| 운동 시간: " << exercise.duration << " 분" << endl;
+//             hasExercises = true;
+//         }
+//     }
+//     if (!hasExercises) {
+//         cout << "표시할 운동 기록이 없음." << endl;
+//     } else {
+//         cout << "총 " << count_if(exercises.begin(), exercises.end(), 
+//                                  [](const Exercise& e) { return !e.type.empty() && e.duration > 0; })
+//              << "개의 운동 기록이 표시되었음." << endl;
 //     }
 // }
-
 void ExerciseManager::displayExercises() const {
     bool hasExercises = false;
+    
+    // 헤더 출력
+    cout << left << setw(5) << "ID" 
+         << setw(17) << "이름" 
+         << setw(20) << "운동 유형" 
+         << setw(10) << "운동 시간" << endl;
+    cout << "--------------------------------------------------------" << endl;
+    
     for (const auto& exercise : exercises) {
         if (!exercise.type.empty() && exercise.duration > 0) {
-            cout << "ID: " << exercise.id << "| 이름: " << exercise.name 
-                 << "| 운동 유형: " << exercise.type 
-                 << "| 운동 시간: " << exercise.duration << " 분" << endl;
+            cout << left << setw(5) << exercise.id 
+                 << setw(15) << exercise.name 
+                 << setw(15) << exercise.type 
+                 << setw(7) << exercise.duration << " 분" << endl;
             hasExercises = true;
         }
     }
+    
     if (!hasExercises) {
-        cout << "표시할 운동 기록이 없음." << endl;
+        cout << "--------------------------------------------------------" << endl;
+        cout << " ▷ 표시할 운동 기록이 없음." << endl;sleep(2);
     } else {
-        cout << "총 " << count_if(exercises.begin(), exercises.end(), 
+        cout << "--------------------------------------------------------" << endl;
+        cout << " ▷ 총 " << count_if(exercises.begin(), exercises.end(), 
                                  [](const Exercise& e) { return !e.type.empty() && e.duration > 0; })
-             << "개의 운동 기록이 표시되었음." << endl;
+             << "개의 운동 기록이 표시되었음." << endl;sleep(2);
     }
 }
 
+// void ExerciseManager::displayAllCustomers() const {
+//     // 고객 정보가 있는지 확인
+//     if (exercises.empty()) {
+//         cout << "저장된 고객 정보가 없습니다." << endl;
+//         return;
+//     }
+
+//     // 고객 목록 출력
+//     cout << "현재 저장된 고객 목록:" << endl;
+//     for (const auto& exercise : exercises) {
+//         cout << "ID: " << exercise.id << "| 이름: " << exercise.name 
+//         <<  "| 운동 유형: " << exercise.type << " | 운동 시간: " << exercise.duration << " 분" << "\n\n";
+//     }
+// }
 void ExerciseManager::displayAllCustomers() const {
     // 고객 정보가 있는지 확인
     if (exercises.empty()) {
-        cout << "저장된 고객 정보가 없습니다." << endl;
+        cout << " -- 저장된 고객 정보가 없습니다." << endl;
         return;
     }
 
+    // 헤더 출력
+    cout << left << setw(5) << "ID" 
+         << setw(17) << "이름" 
+         << setw(20) << "운동 유형" 
+         << setw(10) << "운동 시간" << endl;
+    cout << "--------------------------------------------------------" << endl;
+
     // 고객 목록 출력
-    cout << "현재 저장된 고객 목록:" << endl;
     for (const auto& exercise : exercises) {
-        cout << "ID: " << exercise.id << "| 이름: " << exercise.name 
-        <<  "| 운동 유형: " << exercise.type << " | 운동 시간: " << exercise.duration << " 분" << "\n\n";
+        cout << left << setw(5) << exercise.id 
+             << setw(15) << exercise.name 
+             << setw(15) << exercise.type 
+             << setw(7) << exercise.duration << " 분" << "\n\n";
     }
 }
 
