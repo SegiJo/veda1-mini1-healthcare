@@ -21,12 +21,12 @@ public:
 
     // 고객 정보를 출력하는 함수
     void display() const {
-        cout << "\n----------------------------------------" << endl;
-        cout << left << setw(10) << "ID" << ": " << id << endl
-            << left << setw(10) << "Name" << ": " << name << endl
-            << left << setw(10) << "Phone" << ": " << phoneNumber << endl
-            << left << setw(10) << "Gender" << ": " << gender << endl;
-        cout << "----------------------------------------" << endl;
+        cout << "\n\033[1;96m ---------------------------------" << endl;
+        cout << left << setw(10) << "  ID" << ": " << id << endl
+            << left << setw(10) << "  Name" << ": " << name << endl
+            << left << setw(10) << "  Phone" << ": " << phoneNumber << endl
+            << left << setw(10) << "  Gender" << ": " << gender << endl;
+        cout << " ---------------------------------\033[0m" << endl;
     }
 
     // NEW ID를 반환하는 멤버 함수
