@@ -72,18 +72,20 @@ void customerManager::loadFromCSV(const string& filename) {
 
 // 고객 ID를 나열하여 출력하는 함수
 void customerManager::printCustomerList() const {
-    cout << "\n\033[1;33m\n[현재 고객 ID 목록]\n\033[0m" << endl;
+    
+    
 
     if (customers.empty()) {
         cout << "등록된 고객이 없습니다." << endl;
         return;
     }
-
-    cout << "---------------------------------" << endl;
+    //cout << "\n\033[1;33m\n[현재 고객 ID 목록]\n\033[0m" << endl; // 노란색
+    cout << "\033[1;96m [현재 고객 ID 목록]" << endl; // 하늘색
+    cout << " ---------------------------------" << endl;
 
     int count = 0;
     for (const auto& customer : customers) {
-        cout << setw(5) << customer.id << " ";  // ID를 5칸으로 정렬하여 출력
+        cout << " "<< setw(5) << customer.id << " ";  // ID를 5칸으로 정렬하여 출력
         count++;
 
         // 한 줄에 10개의 ID를 출력한 후 줄 바꿈
@@ -92,8 +94,8 @@ void customerManager::printCustomerList() const {
         }
     }
 
-    cout << "\n---------------------------------" << endl;
-    cout << "총 " << count << "명의 고객이 등록되어 있습니다.\n\n"; // 총 고객 수 출력
+    cout << "\n ---------------------------------\033[0m" << endl;
+    cout << " ▷ 총 " << count << "명의 고객이 등록되어 있습니다.\n\n"; // 총 고객 수 출력
 }
 // 새로운 고객을 추가하는 함수 (간단한 입력을 통해 정보 입력)
 void customerManager::addCustomer() {
@@ -228,19 +230,19 @@ void customerManager::modifyCustomer() {
     // 고객 목록 출력
     printCustomerList();
 
-    cout << "수정할 고객의 ID를 입력하세요 >> ";
+    cout << "수정할 고객의 ID 입력 >> ";
     cin >> id;
     cin.ignore();
 
     for (auto it = customers.begin(); it != customers.end(); ++it) {
         if (it->id == id) {
-            cout << "새 이름을 입력하세요 >> ";
+            cout << "수정할 이름 입력 >> ";
             getline(cin, it->name);
 
-            cout << "새 전화번호를 입력하세요 >> ";
+            cout << "수정할 전화번호 입력>> ";
             getline(cin, it->phoneNumber);
 
-            cout << "새 성별을 입력하세요 >> ";
+            cout << "수정할 성별 입력 >> ";
             getline(cin, it->gender);
             cout << "--------------------------------------------------------" << endl;
             cout << " ▷ 고객 정보가 업데이트되었습니다." << endl;sleep(2);
