@@ -76,18 +76,33 @@ void ExerciseManager::addExercise(const Customer& cust, const string& type, int 
     saveToCSV("exercises.csv");
 }
 
-void ExerciseManager::modifyExercise(int id, const string& type,int duration) {
+void ExerciseManager::modifyExercise(int id, const string& type, int duration) {
+    bool found = false;
+
     for (auto& e : exercises) {
         if (e.id == id) {
-            e.type = type;               
-            e.duration = duration; 
-            cout << "--------------------------------------------------------" << endl;
-            cout << " ▷ 수정 완료 되었습니다."<< endl;sleep(2);
-            return;
+            // type이 비어 있거나 duration이 0이면 수정하지 않음
+            if (!type.empty() && duration > 0) {
+                e.type = type;               
+                e.duration = duration; 
+                cout << "--------------------------------------------------------" << endl;
+                cout << " ▷ 수정 완료 되었습니다." << endl;
+            } else {
+                cout << "--------------------------------------------------------" << endl;
+                cout << " ▷ 유효하지 않은 데이터입니다. 수정되지 않았습니다." << endl;
+            }
+            found = true;
+            break;
         }
     }
-    sleep(2);
+
+    if (!found) {
+        cout << "--------------------------------------------------------" << endl;
+        cout << " ▷ ID " << id << " 번 고객님은 존재하지 않습니다." << endl;
+    }
+
     saveToCSV("exercises.csv");
+    sleep(2);
 }
 
 void ExerciseManager::deleteExercise(int id, const string& type) {
@@ -125,8 +140,8 @@ void ExerciseManager::displayExercises() const {
     for (const auto& exercise : exercises) {
         if (!exercise.type.empty() && exercise.duration > 0) {
             cout << left << setw(10) << exercise.id 
-                 << setw(15) << exercise.name 
-                 << setw(15) << exercise.type 
+                 << setw(18) << exercise.name 
+                 << setw(18) << exercise.type 
                  << setw(4) << exercise.duration << " 분" << endl;
             hasExercises = true;
         }
@@ -150,7 +165,7 @@ void ExerciseManager::displayAllCustomers() const {
         return;
     }
 
-    // 헤더 출력
+    // 현재 고객 리스트 출력
     cout<<"\033[1;33m\n";
     cout << left << setw(10) << "ID" 
          << setw(17) << "이름" 
@@ -159,12 +174,21 @@ void ExerciseManager::displayAllCustomers() const {
     cout << "--------------------------------------------------------" << endl;
 
     // 고객 목록 출력
+    bool hasCustomers = false;
     for (const auto& exercise : exercises) {
-        cout << left << setw(10) << exercise.id 
-             << setw(15) << exercise.name 
-             << setw(15) << exercise.type 
-             << setw(4) << exercise.duration << " 분" << endl;
+        if (!exercise.type.empty() && exercise.duration > 0) {
+            cout << left << setw(10) << exercise.id 
+                 << setw(18) << exercise.name 
+                 << setw(18) << exercise.type 
+                 << setw(4) << exercise.duration << " 분" << endl;
+            hasCustomers = true;
+        }
     }
+
+    if (!hasCustomers) {
+        cout << " -- 해당하는 고객 정보가 없습니다." << endl;
+    }
+    
     cout << "--------------------------------------------------------\n\033[0m" << endl;
 }
 
