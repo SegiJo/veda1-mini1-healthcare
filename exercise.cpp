@@ -121,7 +121,7 @@ void ExerciseManager::deleteExercise(int id, const string& type) {
         sleep(2);
     } else {
         cout << "--------------------------------------------------------" << endl;
-        cout << " ▷ ID " << id << " 번 고객님의 '" << type << "' 운동 정보를 찾았습니다." << endl;sleep(2);
+        cout << " ▷ ID " << id << " 번 고객님의 '" << type << "' 운동 정보가 없습니다." << endl;sleep(2);
     }
 }
 
