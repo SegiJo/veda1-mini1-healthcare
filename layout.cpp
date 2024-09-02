@@ -152,21 +152,65 @@ bool exerciseMenu(ExerciseManager& manager, customerManager& custmanager) {
             manager.addExercise(*cust, type, duration);
         }
         else if (choice == 2) {
-            int id;
+            int id, duration;
             string type;
-            int duration;
 
             manager.displayAllCustomers(); // 현재 존재하는 고객 리스트 표시
-            
-            cout << "수정할 고객 ID>> ";
-            cin >> id; 
-            if (id == 0) continue;
-            cout << "수정할 운동 유형>> ";
-            cin >> type;
-            cout << "수정할 운동 시간(분)>> ";
-            cin >> duration;
+
+            while (true) {
+                cout << "수정할 고객 ID >> ";
+                if (cin >> id) {
+                    if (id == 0) {
+                        clearConsole();
+                        return true;
+                    }
+
+                    Customer* cust = custmanager.getCustomerById(id);
+                    if (cust == nullptr) {
+                        cout << " -- 해당 ID의 고객이 없습니다. 다시 시도하십시오." << endl;
+                        sleep(2);
+                        continue;
+                    }
+                    break;
+                } else {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << " -- 잘못된 입력입니다. 정수를 입력하세요." << endl;
+                    sleep(2);
+                }
+            }
+
+            while (true) {
+                cout << "수정할 운동 유형 >> ";
+                cin >> type;
+                if (!type.empty()) break;
+                else {
+                    cout << " -- 잘못된 입력입니다. 운동 유형을 입력하세요." << endl;
+                    sleep(2);
+                }
+            }
+
+            while (true) {
+                cout << "수정할 운동 시간(분) >> ";
+                if (cin >> duration) {
+                    if (duration >= 0) break;
+                    else {
+                        cout << " -- 잘못된 입력입니다. 0 이상의 정수를 입력하세요." << endl;
+                        sleep(2);
+                    }
+                } else {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << " -- 잘못된 입력입니다. 정수를 입력하세요." << endl;
+                    sleep(2);
+                }
+            }
 
             manager.modifyExercise(id, type, duration);
+
+            cout << " -- 운동 정보가 성공적으로 수정되었습니다." << endl;
+            sleep(2);
+            clearConsole();
         }
         else if (choice == 3) {
             int id;
@@ -246,17 +290,69 @@ bool mealMenu(mealmanage& mealmanager, customerManager& custmanager) {
         else if (choice == 2) { 
             int id, totalCalories;
             string food;
+
             mealmanager.displayAllCustomers();
-            cout << "수정할 식단의 고객 ID >> ";
-            cin >> id;
-            if (id == 0) continue;
-            cout << "새 음식 >> ";
-            cin >> food;
-            if (food == "0") continue;
-            cout << "새 총 칼로리 >> ";
-            cin >> totalCalories;
+
+            while (true) {
+                cout << "수정할 식단의 고객 ID >> ";
+                if (cin >> id) {
+                    if (id == 0) {
+                        clearConsole();
+                        return true; 
+                    }
+
+                    Customer* cust = custmanager.getCustomerById(id);
+                    if (cust == nullptr) {
+                        cout << " -- 해당 ID의 고객이 없습니다. 다시 시도하십시오." << endl;
+                        sleep(2); 
+                        continue; 
+                    }
+                    break; 
+                } else {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << " -- 잘못된 입력입니다. 정수를 입력하세요." << endl;
+                    sleep(2);
+                }
+            }
+
+            while (true) {
+                cout << "새 음식 >> ";
+                cin >> food;
+                if (food == "0") {
+                    clearConsole();
+                    return true;
+                }
+                if (!food.empty()) break;
+                else {
+                    cout << " -- 잘못된 입력입니다. 음식을 입력하세요." << endl;
+                    sleep(2);
+                }
+            }
+
+            while (true) {
+                cout << "새 총 칼로리 >> ";
+                if (cin >> totalCalories) {
+                    if (totalCalories >= 0) break;
+                    else {
+                        cout << " -- 잘못된 입력입니다. 0 이상의 정수를 입력하세요." << endl;
+                        sleep(2);
+                    }
+                } else {
+                    
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                    cout << " -- 잘못된 입력입니다. 정수를 입력하세요." << endl;
+                    sleep(2);
+                }
+            }
 
             mealmanager.modifyMeal(id, food, totalCalories);
+
+            cout << " -- 식단이 성공적으로 수정되었습니다." << endl;
+            sleep(2);  
+            clearConsole(); 
+
         }
         else if (choice == 3) { 
             int id;
