@@ -71,8 +71,7 @@ void customerManager::printCustomerList() const {
         cout << " "<< setw(5) << customer.id << " ";  // ID를 5칸으로 정렬하여 출력
         count++;
 
-        // 한 줄에 10개의 ID를 출력한 후 줄 바꿈
-        if (count % 7 == 0) {
+        if (count % 5 == 0) {      //----------[09/02]ID 한줄 표시 개수 수정
             cout << "\n";
         }
     }
@@ -85,7 +84,7 @@ void customerManager::addCustomer() {
     int id;
     string name, phoneNumber, gender;
 
-    if (customers.size() >= 10) {
+    if (customers.size() >= 30) {      //----------[09/02]고객수 수정
         cout << " 더 이상 고객을 추가할 수 없습니다. 일부 고객 정보를 삭제하십시오. 메뉴로 돌아갑니다." << endl;
         sleep(1); // 잠시 대기 후 메뉴로 돌아감
         return;
