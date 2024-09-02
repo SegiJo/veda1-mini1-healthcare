@@ -108,7 +108,7 @@ void mealmanage::deleteMeal(int id, const string& food) {
         it->food.clear();  // 운동 유형을 빈 문자열로 초기화
         it->totalCalories = 0;  // 운동 시간을 0으로 초기화
         cout << "--------------------------------------------------------" << endl;
-        cout << " ▷ ID " << id << " 번 고객님의 '" << food << "' 식단 정보가 삭제됐습니다." << endl;
+        cout << " ▷ ID " << id << " 번 고객님의 '" << food << "' 식단 정보가 삭제되었습니다." << endl;
         //saveToCSV("exercises.csv"); // (0901) 파일명이 잘못 적혀있어서 주석처리
         saveToCSV("meal.csv");
         sleep(2);
@@ -148,17 +148,18 @@ void mealmanage::displayMeals() const {
     bool hasMeals = false;
     //cout << "\033[1;33m\n[ 고객 정보를 입력하세요. (취소는 0 입력) ]\n\033[0m" << endl;
     // 헤더 출력
-    cout << left << setw(5) << "\033[1;33m\nID" 
-         << setw(20) << "이름" 
-         << setw(24) << "음식이름" 
-         << setw(15) << "음식   칼로리" << endl;
+    cout<<"\033[1;33m\n";
+    cout << left << setw(10) << "ID" 
+         << setw(17) << "이름" 
+         << setw(17) << "음식" 
+         << setw(10) << "칼로리" << endl;
     cout << "--------------------------------------------------------" << endl;
 
     for (const auto& meal : meals) {
         if (!meal.food.empty() && meal.totalCalories > 0) {
-            cout << left << setw(5) << meal.id 
-                 << setw(17) << meal.name 
-                 << setw(20) << meal.food 
+            cout << left << setw(10) << meal.id 
+                 << setw(15) << meal.name 
+                 << setw(15) << meal.food 
                  << setw(7) << meal.totalCalories << " Kcal" << endl;
             hasMeals = true;
         }
@@ -183,17 +184,18 @@ void mealmanage::displayAllCustomers() const {
     }
 
     // 헤더 출력
-    cout << left << setw(5) << "\033[1;33m\nID" 
-         << setw(18) << "이름" 
-         << setw(24) << "음식이름" 
-         << setw(15) << "음식   칼로리" << endl;
+    cout<<"\033[1;33m\n";
+    cout << left << setw(10) << "ID"
+         << setw(17) << "이름" 
+         << setw(17) << "음식" 
+         << setw(10) << "칼로리" << endl;
     cout << "--------------------------------------------------------" << endl;
 
     // 고객 목록 출력
     for (const auto& meal : meals) {
-        cout << left << setw(5) << meal.id 
-             << setw(17) << meal.name 
-             << setw(20) << meal.food 
+        cout << left << setw(10) << meal.id 
+             << setw(15) << meal.name 
+             << setw(15) << meal.food 
              << setw(7) << meal.totalCalories << " Kcal" << "\n\n";
     }
     cout << "--------------------------------------------------------\n\033[0m" << endl;
