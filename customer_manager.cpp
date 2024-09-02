@@ -53,23 +53,6 @@ void customerManager::loadFromCSV(const string& filename) {
     file.close(); // 파일 닫기
 }
 
-
-// // 고객 ID를 나열하여 출력하는 함수
-// void customerManager::printCustomerList() const {
-//     cout << "\n현재 고객 ID 목록 | ";
-
-//     if (customers.empty()) {
-//         cout << "등록된 고객이 없습니다." << endl;
-//         return;
-//     }
-
-//     for (const auto& customer : customers) {
-//         cout << customer.id << " ";
-//     }
-
-//     cout << "\n\n"; // 모든 ID 출력 후 줄바꿈 추가
-// }
-
 // 고객 ID를 나열하여 출력하는 함수
 void customerManager::printCustomerList() const {
     
@@ -89,7 +72,7 @@ void customerManager::printCustomerList() const {
         count++;
 
         // 한 줄에 10개의 ID를 출력한 후 줄 바꿈
-        if (count % 10 == 0) {
+        if (count % 7 == 0) {
             cout << "\n";
         }
     }
