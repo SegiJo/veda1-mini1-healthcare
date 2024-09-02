@@ -131,9 +131,9 @@ void ExerciseManager::deleteExercise(int id, const string& type) {
 // }
 void ExerciseManager::displayExercises() const {
     bool hasExercises = false;
-    
+    //cout << "\033[1;95m\n[ 고객 정보를 입력하세요. (취소는 0 입력) ]\n\033[0m" << endl;
     // 헤더 출력
-    cout << left << setw(5) << "ID" 
+    cout << left << setw(5) << "\033[1;33m\nID" 
          << setw(17) << "이름" 
          << setw(20) << "운동 유형" 
          << setw(10) << "운동 시간" << endl;
@@ -150,10 +150,10 @@ void ExerciseManager::displayExercises() const {
     }
     
     if (!hasExercises) {
-        cout << "--------------------------------------------------------" << endl;
+        cout << "--------------------------------------------------------\n\033[0m" << endl;
         cout << " ▷ 표시할 운동 기록이 없음." << endl;sleep(2);
     } else {
-        cout << "--------------------------------------------------------" << endl;
+        cout << "--------------------------------------------------------\n\033[0m" << endl;
         cout << " ▷ 총 " << count_if(exercises.begin(), exercises.end(), 
                                  [](const Exercise& e) { return !e.type.empty() && e.duration > 0; })
              << "개의 운동 기록이 표시되었음." << endl;sleep(2);
@@ -182,7 +182,7 @@ void ExerciseManager::displayAllCustomers() const {
     }
 
     // 헤더 출력
-    cout << left << setw(5) << "ID" 
+    cout << left << setw(5) << "\033[1;33m\nID" 
          << setw(17) << "이름" 
          << setw(20) << "운동 유형" 
          << setw(10) << "운동 시간" << endl;
@@ -195,6 +195,7 @@ void ExerciseManager::displayAllCustomers() const {
              << setw(15) << exercise.type 
              << setw(7) << exercise.duration << " 분" << "\n\n";
     }
+    cout << "--------------------------------------------------------\n\033[0m" << endl;
 }
 
 const vector<Exercise>& ExerciseManager::getExercisesByType(const string& type) const {
