@@ -101,7 +101,7 @@ void ExerciseManager::deleteExercise(int id, const string& type) {
         it->type.clear();  // 운동 유형을 빈 문자열로 초기화
         it->duration = 0;  // 운동 시간을 0으로 초기화
         cout << "--------------------------------------------------------" << endl;
-        cout << " ▷ ID " << id << " 번 고객님의 '" << type << "' 운동 정보가 삭제돼었습니다." << endl;
+        cout << " ▷ ID " << id << " 번 고객님의 '" << type << "' 운동 정보가 삭제되었습니다." << endl;
         saveToCSV("exercises.csv");
         sleep(2);
     } else {
@@ -111,40 +111,23 @@ void ExerciseManager::deleteExercise(int id, const string& type) {
 }
 
 
-// void ExerciseManager::displayExercises() const {
-//     bool hasExercises = false;
-//     for (const auto& exercise : exercises) {
-//         if (!exercise.type.empty() && exercise.duration > 0) {
-//             cout << "ID: " << exercise.id << "| 이름: " << exercise.name 
-//                  << "| 운동 유형: " << exercise.type 
-//                  << "| 운동 시간: " << exercise.duration << " 분" << endl;
-//             hasExercises = true;
-//         }
-//     }
-//     if (!hasExercises) {
-//         cout << "표시할 운동 기록이 없음." << endl;
-//     } else {
-//         cout << "총 " << count_if(exercises.begin(), exercises.end(), 
-//                                  [](const Exercise& e) { return !e.type.empty() && e.duration > 0; })
-//              << "개의 운동 기록이 표시되었음." << endl;
-//     }
-// }
 void ExerciseManager::displayExercises() const {
     bool hasExercises = false;
     //cout << "\033[1;95m\n[ 고객 정보를 입력하세요. (취소는 0 입력) ]\n\033[0m" << endl;
     // 헤더 출력
-    cout << left << setw(5) << "\033[1;33m\nID" 
+    cout<<"\033[1;33m\n";
+    cout << left << setw(10) << "ID" 
          << setw(17) << "이름" 
-         << setw(20) << "운동 유형" 
-         << setw(10) << "운동 시간" << endl;
+         << setw(19) << "운동 유형" 
+         << setw(10) << "운동시간" << endl;
     cout << "--------------------------------------------------------" << endl;
     
     for (const auto& exercise : exercises) {
         if (!exercise.type.empty() && exercise.duration > 0) {
-            cout << left << setw(5) << exercise.id 
+            cout << left << setw(10) << exercise.id 
                  << setw(15) << exercise.name 
                  << setw(15) << exercise.type 
-                 << setw(7) << exercise.duration << " 분" << endl;
+                 << setw(4) << exercise.duration << " 분" << endl;
             hasExercises = true;
         }
     }
@@ -160,20 +143,6 @@ void ExerciseManager::displayExercises() const {
     }
 }
 
-// void ExerciseManager::displayAllCustomers() const {
-//     // 고객 정보가 있는지 확인
-//     if (exercises.empty()) {
-//         cout << "저장된 고객 정보가 없습니다." << endl;
-//         return;
-//     }
-
-//     // 고객 목록 출력
-//     cout << "현재 저장된 고객 목록:" << endl;
-//     for (const auto& exercise : exercises) {
-//         cout << "ID: " << exercise.id << "| 이름: " << exercise.name 
-//         <<  "| 운동 유형: " << exercise.type << " | 운동 시간: " << exercise.duration << " 분" << "\n\n";
-//     }
-// }
 void ExerciseManager::displayAllCustomers() const {
     // 고객 정보가 있는지 확인
     if (exercises.empty()) {
@@ -182,18 +151,19 @@ void ExerciseManager::displayAllCustomers() const {
     }
 
     // 헤더 출력
-    cout << left << setw(5) << "\033[1;33m\nID" 
+    cout<<"\033[1;33m\n";
+    cout << left << setw(10) << "ID" 
          << setw(17) << "이름" 
-         << setw(20) << "운동 유형" 
-         << setw(10) << "운동 시간" << endl;
+         << setw(19) << "운동 유형" 
+         << setw(10) << "운동시간" << endl;
     cout << "--------------------------------------------------------" << endl;
 
     // 고객 목록 출력
     for (const auto& exercise : exercises) {
-        cout << left << setw(5) << exercise.id 
+        cout << left << setw(10) << exercise.id 
              << setw(15) << exercise.name 
              << setw(15) << exercise.type 
-             << setw(7) << exercise.duration << " 분" << "\n\n";
+             << setw(4) << exercise.duration << " 분" << endl;
     }
     cout << "--------------------------------------------------------\n\033[0m" << endl;
 }
