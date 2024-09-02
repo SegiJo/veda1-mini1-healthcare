@@ -117,7 +117,7 @@ void mealmanage::deleteMeal(int id, const string& food) {
         cout << " ▷ ID " << id << " 번 고객님의 '" << food << "' 식단 정보를 찾았습니다." << endl;
     }
 }
-
+//cout << "\033[1;96m이 텍스트는 밝은 하늘색으로 출력됩니다.\033[0m" << endl;
 
 // void mealmanage::displayMeals() const { // csv에 저장되어있는 값 출력
 //     for (const auto& meal : meals) {
@@ -146,9 +146,9 @@ void mealmanage::deleteMeal(int id, const string& food) {
 
 void mealmanage::displayMeals() const {
     bool hasMeals = false;
-
+    //cout << "\033[1;33m\n[ 고객 정보를 입력하세요. (취소는 0 입력) ]\n\033[0m" << endl;
     // 헤더 출력
-    cout << left << setw(5) << "ID" 
+    cout << left << setw(5) << "\033[1;33m\nID" 
          << setw(20) << "이름" 
          << setw(24) << "음식이름" 
          << setw(15) << "음식   칼로리" << endl;
@@ -163,30 +163,16 @@ void mealmanage::displayMeals() const {
             hasMeals = true;
         }
     }
-
+    cout << "\n--------------------------------------------------------\n\033[0m" << endl;
     if (!hasMeals) {
         cout << " ▷ 표시할 식단 기록이 없습니다." << endl;
     } else {
-        cout << "\n--------------------------------------------------------" << endl;
+        
         cout << " ▷ 총 " << count_if(meals.begin(), meals.end(), 
                                  [](const meal& m) { return !m.food.empty() && m.totalCalories > 0; })
              << "개의 식단 기록이 표시되었습니다." << endl;
     }
 }
-// void mealmanage::displayAllCustomers() const {
-//     // 고객 정보가 있는지 확인
-//     if (meals.empty()) {
-//         cout << "저장된 고객 정보가 없습니다." << endl;sleep(2);
-//         return;
-//     }
-
-//     // 고객 목록 출력
-//     cout << "현재 저장된 고객 목록:" << endl;
-//     for (const auto& meal : meals) {
-//         cout << "ID: " << meal.id << "| 이름: " << meal.name 
-//         <<  "| 음식 유형: " << meal.food << " | 음식 칼로리: " << meal.totalCalories << " Kcal" << "\n\n";
-//     }
-// }
 
 
 void mealmanage::displayAllCustomers() const {
@@ -197,7 +183,7 @@ void mealmanage::displayAllCustomers() const {
     }
 
     // 헤더 출력
-    cout << left << setw(5) << "ID" 
+    cout << left << setw(5) << "\033[1;33m\nID" 
          << setw(18) << "이름" 
          << setw(24) << "음식이름" 
          << setw(15) << "음식   칼로리" << endl;
@@ -210,4 +196,5 @@ void mealmanage::displayAllCustomers() const {
              << setw(20) << meal.food 
              << setw(7) << meal.totalCalories << " Kcal" << "\n\n";
     }
+    cout << "--------------------------------------------------------\n\033[0m" << endl;
 }
