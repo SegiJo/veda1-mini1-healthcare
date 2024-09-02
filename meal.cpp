@@ -78,19 +78,31 @@ void mealmanage::addMeal(const Customer& cust, const string& food, int totalCalo
 }
 
 void mealmanage::modifyMeal(int id, const string& food, int totalCalories) {
+    bool found = false;
+
     for (auto& m : meals) {
         if (m.id == id) {
-            m.food = food;               // food 수정
-            m.totalCalories = totalCalories; // totalCalories 수정
-            cout << "--------------------------------------------------------" << endl;
-            cout << " ▷ 수정 완료 되었습니다."<< endl;
-            sleep(2);
-            return;
+            if (!food.empty() && totalCalories > 0) {  // 조건 추가: 유효한 경우에만 수정
+                m.food = food;
+                m.totalCalories = totalCalories;
+                cout << "--------------------------------------------------------" << endl;
+                cout << " ▷ 수정 완료 되었습니다." << endl;
+            } else {
+                cout << "--------------------------------------------------------" << endl;
+                cout << " ▷ 유효하지 않은 데이터입니다. 수정되지 않았습니다." << endl;
+            }
+            found = true;
+            break;
         }
     }
-    //sleep(2);
-    //cout << "No meal found with ID: " << id << endl;
+
+    if (!found) {
+        cout << "--------------------------------------------------------" << endl;
+        cout << " ▷ ID " << id << " 번 고객님의 식단 정보를 찾을 수 없습니다." << endl;
+    }
+
     saveToCSV("meal.csv");
+    sleep(2);
 }
 
 // void mealmanage::deleteMeal(int id) { // 식사관리 삭제 기능
@@ -114,7 +126,7 @@ void mealmanage::deleteMeal(int id, const string& food) {
         sleep(2);
     } else {
         cout << "--------------------------------------------------------" << endl;
-        cout << " ▷ ID " << id << " 번 고객님의 '" << food << "' 식단 정보를 찾았습니다." << endl;
+        cout << " ▷ ID " << id << " 번 고객님의 '" << food << "' 식단 정보가 없습니다." << endl;
     }
 }
 //cout << "\033[1;96m이 텍스트는 밝은 하늘색으로 출력됩니다.\033[0m" << endl;
@@ -158,9 +170,9 @@ void mealmanage::displayMeals() const {
     for (const auto& meal : meals) {
         if (!meal.food.empty() && meal.totalCalories > 0) {
             cout << left << setw(10) << meal.id 
-                 << setw(15) << meal.name 
-                 << setw(15) << meal.food 
-                 << setw(7) << meal.totalCalories << " Kcal" << endl;
+                 << setw(18) << meal.name 
+                 << setw(20) << meal.food 
+                 << setw(3) << meal.totalCalories << " Kcal" << endl;
             hasMeals = true;
         }
     }
@@ -179,24 +191,34 @@ void mealmanage::displayMeals() const {
 void mealmanage::displayAllCustomers() const {
     // 고객 정보가 있는지 확인
     if (meals.empty()) {
-        cout << " -- 저장된 고객 정보가 없습니다." << endl; sleep(2);
+        cout << " -- 저장된 고객 정보가 없습니다." << endl;
+        sleep(2);
         return;
     }
 
-    // 헤더 출력
-    cout<<"\033[1;33m\n";
+    // 현재 고객 리스트 출력
+    cout << "\033[1;33m\n";
     cout << left << setw(10) << "ID"
-         << setw(17) << "이름" 
-         << setw(17) << "음식" 
+         << setw(17) << "이름"
+         << setw(17) << "음식"
          << setw(10) << "칼로리" << endl;
     cout << "--------------------------------------------------------" << endl;
 
+    bool hasCustomers = false;
     // 고객 목록 출력
     for (const auto& meal : meals) {
-        cout << left << setw(10) << meal.id 
-             << setw(15) << meal.name 
-             << setw(15) << meal.food 
-             << setw(7) << meal.totalCalories << " Kcal" << "\n\n";
+        if (!meal.food.empty() && meal.totalCalories > 0) {  // 유효한 데이터만 출력
+            cout << left << setw(10) << meal.id
+                 << setw(18) << meal.name
+                 << setw(20) << meal.food
+                 << setw(3) << meal.totalCalories << " Kcal" << "\n\n";
+            hasCustomers = true;
+        }
     }
+
+    if (!hasCustomers) {
+        cout << " -- 해당하는 고객 정보가 없습니다." << endl;
+    }
+
     cout << "--------------------------------------------------------\n\033[0m" << endl;
 }
