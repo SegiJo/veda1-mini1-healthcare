@@ -38,7 +38,7 @@
 ## 🎥 기능 구현
 | 메인 화면 | 입력 | 조회 |
 | :------: |  :------: | :------: |
-|![메인화면](https://github.com/user-attachments/assets/e552662c-b47f-4f8c-a8fa-2d47f5d695c7)|![add](https://github.com/user-attachments/assets/486589f7-3812-43a3-9c8e-943fe61ee62d)|![display](https://github.com/user-attachments/assets/0514c1c2-784a-4a4a-bddd-590fa199ae8c)
+|![main](https://github.com/user-attachments/assets/4e228951-d66c-47cf-9750-f7c2d5a72ccf)|![add](https://github.com/user-attachments/assets/486589f7-3812-43a3-9c8e-943fe61ee62d)|![display](https://github.com/user-attachments/assets/0514c1c2-784a-4a4a-bddd-590fa199ae8c)
 
 
 <br>
